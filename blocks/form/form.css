@@ -547,6 +547,6 @@ main form .wizard > .current-wizard-step.panel-wrapper:last-of-type ~ .wizard-bu
     display: none;
 }
 
-.field-internal-audience {
+.field-audience {
     display: none;
 }

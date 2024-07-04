@@ -2,7 +2,7 @@ import { toClassName } from '../../../scripts/aem.js';
 import { AUDIENCES as audiences } from '../../../scripts/scripts.js';
 
 export const DEFAULT_OPTIONS = {
-  audiencesDataAttribute: '_internal_audience',
+  audiencesDataAttribute: '__audience__',
   audiencesMetaTagPrefix: 'audience',
   audiencesQueryParameter: 'audience',
 };
