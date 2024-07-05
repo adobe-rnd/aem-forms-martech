@@ -11,13 +11,9 @@ export const DEFAULT_OPTIONS = {
 const config = {
   clickCollectionEnabled: false,
   debugEnabled: true,
-  defaultConsent: 'in', // 'in' or 'out' or 'pending'
-  datastreamId: 'd97acdd2-5385-4a50-aa99-84e507bedf6f',
-  orgId: '52C418126318FCD90A494134@AdobeOrg',
-};
-const temp = {
-  datastreamId: '8de17894-839d-47a4-b461-130a4842c769',
-  orgId: '296721E263867A380A494123@AdobeOrg',
+  defaultConsent: 'in',
+  datastreamId: '7044a5f4-2a52-4264-9323-3b6511444188',
+  orgId: '908936ED5D35CC220A495CD4@AdobeOrg',
 };
 
 const alloyLoadedPromise = initWebSDK('../../../scripts/alloy.js', config); // load only when personalization is enbaled
@@ -52,7 +48,11 @@ export async function resolveAudiences() {
   }, applicableAudiences);
   await alloyLoadedPromise;
   await Promise.all([promises, alloyLoadedPromise]);
-  const response = await getSegments({}, {});
+  const response = await getSegments({
+    _sitesinternal: {
+      pseudoID: 'Testing',
+    },
+  }, {});
   console.log('Response:', response);
   return applicableAudiences;
 }

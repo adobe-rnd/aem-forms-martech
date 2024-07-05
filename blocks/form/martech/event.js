@@ -20,7 +20,7 @@ export function initWebSDK(path, config) {
 
 export async function getSegments(xdm, data) {
   const response = await window.alloy('sendEvent', {
-    renderDecisions: false,
+    renderDecisions: true,
     data,
     xdm,
   });
