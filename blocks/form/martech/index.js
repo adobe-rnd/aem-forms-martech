@@ -1,11 +1,26 @@
 import { toClassName } from '../../../scripts/aem.js';
 import { AUDIENCES as audiences } from '../../../scripts/scripts.js';
+import { getSegments, initWebSDK } from './event.js';
 
 export const DEFAULT_OPTIONS = {
   audiencesDataAttribute: '__audience__',
   audiencesMetaTagPrefix: 'audience',
   audiencesQueryParameter: 'audience',
 };
+
+const config = {
+  clickCollectionEnabled: false,
+  debugEnabled: true,
+  defaultConsent: 'in', // 'in' or 'out' or 'pending'
+  datastreamId: 'd97acdd2-5385-4a50-aa99-84e507bedf6f',
+  orgId: '52C418126318FCD90A494134@AdobeOrg',
+};
+const temp = {
+  datastreamId: '8de17894-839d-47a4-b461-130a4842c769',
+  orgId: '296721E263867A380A494123@AdobeOrg',
+};
+
+const alloyLoadedPromise = initWebSDK('../../../scripts/alloy.js', config); // load only when personalization is enbaled
 
 function getAudienceFromUrl() {
   const usp = new URLSearchParams(window.location.search);
@@ -35,6 +50,9 @@ export async function resolveAudiences() {
     }
     return acc;
   }, applicableAudiences);
-  await Promise.all(promises);
+  await alloyLoadedPromise;
+  await Promise.all([promises, alloyLoadedPromise]);
+  const response = await getSegments({}, {});
+  console.log('Response:', response);
   return applicableAudiences;
 }
