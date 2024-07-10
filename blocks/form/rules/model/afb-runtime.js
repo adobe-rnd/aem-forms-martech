@@ -4114,8 +4114,8 @@ class Field extends Scriptable {
         const dataNode = this.getDataNode();
         if (dataNode !== undefined && dataNode !== NullDataValue && dataNode.$value !== this._jsonModel.value) {
             const changeAction = propertyChange('value', dataNode.$value, this._jsonModel.value);
-            this._updateRuleNodeReference(this._jsonModel.value);
             this._jsonModel.value = dataNode.$value;
+            this._updateRuleNodeReference(this._jsonModel.value);
             this.queueEvent(changeAction);
         }
     }
