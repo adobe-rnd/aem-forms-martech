@@ -86,7 +86,7 @@ const createSelect = withFieldWrapper((fd) => {
     option.textContent = label instanceof Object ? label?.value?.trim() : label?.trim();
     option.value = value?.trim() || label?.trim();
     if (fd.value === option.value || (Array.isArray(fd.value) && fd.value.includes(option.value))) {
-      option.setAttribute('selected', '');
+      option.selected = true;
       optionSelected = true;
     }
     select.append(option);

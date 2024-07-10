@@ -91,6 +91,10 @@ async function fieldChanged(payload, form, generateFormRendition) {
               || compare(currentValue, el.value, type);
             el.checked = exists;
           });
+        } else if (field.type === 'select-multiple') {
+          [...field.options].forEach((option) => {
+            option.selected = currentValue.includes(option.value);
+          });
         } else if (fieldType === 'checkbox') {
           field.checked = compare(currentValue, field.value, type);
         } else if (fieldType === 'plain-text') {
@@ -228,6 +232,8 @@ function applyRuleEngine(htmlForm, form, captcha) {
       form.getElement(id).value = checked ? value : field.dataset.uncheckedValue;
     } else if (field.type === 'file') {
       form.getElement(id).value = Array.from(e?.detail?.files || field.files);
+    } else if (field.selectedOptions) {
+      form.getElement(id).value = [...field.selectedOptions].map((option) => option.value);
     } else {
       form.getElement(id).value = value;
     }

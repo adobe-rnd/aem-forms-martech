@@ -20,9 +20,15 @@ export function initWebSDK(path, config) {
 
 export async function getSegments(xdm, data) {
   const response = await window.alloy('sendEvent', {
-    renderDecisions: true,
+    type: 'form.view',
+    renderDecisions: false,
     data,
     xdm,
+    decisionScopes: ['eyJ4ZG06YWN0aXZpdHlJZCI6Inhjb3JlOm9mZmVyLWFjdGl2aXR5OjE5MWI5ZDM5OWRiNDUyOTgiLCJ4ZG06cGxhY2VtZW50SWQiOiJ4Y29yZTpvZmZlci1wbGFjZW1lbnQ6MTkxYjk3ZjJmZjMzOTU5NiJ9'],
   });
-  return response;
+  const segmentIds = response.destinations
+    .flatMap((destination) => destination.segments.map((segment) => segment.id));
+
+  console.log('Response:', response, segmentIds);
+  return segmentIds;
 }

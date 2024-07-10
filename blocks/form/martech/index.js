@@ -10,7 +10,7 @@ export const DEFAULT_OPTIONS = {
 
 const config = {
   clickCollectionEnabled: false,
-  debugEnabled: true,
+  debugEnabled: false,
   defaultConsent: 'in',
   datastreamId: '7044a5f4-2a52-4264-9323-3b6511444188',
   orgId: '908936ED5D35CC220A495CD4@AdobeOrg',
@@ -48,11 +48,16 @@ export async function resolveAudiences() {
   }, applicableAudiences);
   await alloyLoadedPromise;
   await Promise.all([promises, alloyLoadedPromise]);
-  const response = await getSegments({
+  const segments = await getSegments({
     _sitesinternal: {
-      pseudoID: 'Testing',
+      pseudoID: '9876543257',
+    },
+    person: {
+      name: {
+        firstName: 'John',
+      },
+      gender: 'male',
     },
   }, {});
-  console.log('Response:', response);
-  return applicableAudiences;
+  return [...applicableAudiences, ...segments];
 }
