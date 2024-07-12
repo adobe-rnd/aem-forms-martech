@@ -49,15 +49,7 @@ export async function resolveAudiences() {
   await alloyLoadedPromise;
   await Promise.all([promises, alloyLoadedPromise]);
   const segments = await getSegments({
-    _sitesinternal: {
-      pseudoID: '9876543257',
-    },
-    person: {
-      name: {
-        firstName: 'John',
-      },
-      gender: 'male',
-    },
+    
   }, {});
   return [...applicableAudiences, ...segments];
 }
