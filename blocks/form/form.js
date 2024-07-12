@@ -12,6 +12,7 @@ import DocBasedFormToAF from './transform.js';
 import transferRepeatableDOM from './components/repeat.js';
 import { handleSubmit } from './submit.js';
 import { getSubmitBaseUrl, emailPattern } from './constant.js';
+import { getSegments } from './martech/event.js';
 
 export const DELAY_MS = 0;
 let captchaField;
@@ -264,6 +265,32 @@ const handleFocusOut = (input) => {
   input.value = displayValue;
 };
 
+const handleProfileFieldChange = async (event, field) => {
+  var element = event.target;
+  var audience = document.querySelector("[name='__audience__']");
+  const audiences = await getSegments(getXDMObject(field, element.value), {});
+  audience.value = audiences;
+  const changeEvent = new CustomEvent('change', {});
+  audience.dispatchEvent(changeEvent);
+}
+
+
+const getXDMObject = (field, value) => {
+  var xdmDataRef = field.properties.xdmDataRef;
+  var xdm = {};
+  var current = xdm;
+  var keys = xdmDataRef.split(".");
+  keys.forEach((key, index) => { 
+    if(index === keys.length -1) {
+      current[key] = value;
+    } else {
+      current[key] = {};
+      current = current[key];
+    } 
+  });
+  return xdm;
+}
+
 function inputDecorator(field, element) {
   const input = element?.querySelector('input,textarea,select');
   if (input) {
@@ -304,6 +331,10 @@ function inputDecorator(field, element) {
     }
     if (field.minItems) {
       input.dataset.minItems = field.minItems;
+    }
+    if(field.properties.enableProfile) {
+      console.log("profle enabled");
+      input.addEventListener('change', (event) => handleProfileFieldChange(event, field));
     }
     if (field.maxItems) {
       input.dataset.maxItems = field.maxItems;
