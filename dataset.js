@@ -1,4 +1,3 @@
-
 function getRandomDate(year = 2024) {
   const start = new Date(year, 6, 1);
   const end = new Date();

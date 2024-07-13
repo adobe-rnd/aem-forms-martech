@@ -350,6 +350,23 @@
             }
         },
         {
+            "title": "Hero",
+            "id": "hero-input",
+            "plugins": {
+                "xwalk": {
+                    "page": {
+                        "resourceType": "core/fd/components/form/textinput/v1/textinput",
+                        "template": {
+                            "fieldType": "hero",
+                            "enabled": true,
+                            "visible": true,
+                            "readOnly": true
+                        }
+                    }
+                }
+            }
+        },
+        {
             "title": "Wizard",
             "id": "wizard",
             "plugins": {

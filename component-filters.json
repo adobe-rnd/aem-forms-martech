@@ -56,7 +56,8 @@
       "plain-text",
       "radio-group",
       "text-input",
-      "wizard"
+      "wizard",
+      "hero-input"
     ]
   }
 ]
