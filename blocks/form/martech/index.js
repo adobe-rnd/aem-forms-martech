@@ -1,8 +1,11 @@
 import { toClassName } from '../../../scripts/aem.js';
 import { AUDIENCES as audiences } from '../../../scripts/scripts.js';
-import { getSegments, initWebSDK } from './event.js';
+import { jsonFormula } from '../rules/formula/index.js';
+import { getAudiences, getXDMMappedData, initWebSDK } from './event.js';
+import * as module from '../functions.js';
 
 export const DEFAULT_OPTIONS = {
+  audiencesFieldId: 'dropdown-76276b6656',
   audiencesDataAttribute: '__audience__',
   audiencesMetaTagPrefix: 'audience',
   audiencesQueryParameter: 'audience',
@@ -10,7 +13,7 @@ export const DEFAULT_OPTIONS = {
 
 const config = {
   clickCollectionEnabled: false,
-  debugEnabled: true,
+  debugEnabled: false,
   defaultConsent: 'in',
   datastreamId: '7044a5f4-2a52-4264-9323-3b6511444188',
   orgId: '908936ED5D35CC220A495CD4@AdobeOrg',
@@ -26,7 +29,51 @@ function getAudienceFromUrl() {
   return forcedAudience;
 }
 
-export async function resolveAudiences() {
+const functions = [];
+let nativeAudiences = [];
+const xdmData = {
+};
+
+function resolveSegments() {
+  nativeAudiences = [];
+  const promises = Object.keys(audiences).reduce((acc, key) => {
+    if (audiences[key] && typeof audiences[key] === 'function') {
+      if (audiences[key]()) {
+        acc.push(key);
+      }
+    }
+    return acc;
+  }, nativeAudiences);
+  return promises;
+}
+
+function getCustomFunctions() {
+  const keys = Object.keys(module);
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < keys.length; i++) {
+    const name = keys[i];
+    const funcDef = module[keys[i]];
+    if (typeof funcDef === 'function') {
+      functions[name] = { _signature: [], _func: funcDef };
+    }
+  }
+}
+
+function resolveFormSegments(formSegments) {
+  const { innerWidth: width, innerHeight: height } = window;
+  const data = { width, height };
+  nativeAudiences = [];
+  const promises = formSegments.reduce((acc, { name, expr }) => {
+    const result = jsonFormula(data, {}, expr, functions);
+    if (result) {
+      acc.push(name);
+    }
+    return acc;
+  }, nativeAudiences);
+  return promises;
+}
+
+export async function getAudienceAndOffers(formSegments) {
   if (!audiences || !Object.keys(audiences).length) {
     return null;
   }
@@ -37,22 +84,18 @@ export async function resolveAudiences() {
     return forcedAudience;
   }
 
-  const applicableAudiences = [];
-  const promises = Object.keys(audiences).reduce((acc, key) => {
-    if (audiences[key] && typeof audiences[key] === 'function') {
-      if (audiences[key]()) {
-        acc.push(key);
-      }
-    }
-    return acc;
-  }, applicableAudiences);
+  // const promises = resolveSegments();
+  const formSegmentsPromises = resolveFormSegments(formSegments);
   await alloyLoadedPromise;
-  await Promise.all([promises, alloyLoadedPromise]);
-  const response = await getSegments({
-    _sitesinternal: {
-      pseudoID: 'Testing',
-    },
-  }, {});
-  console.log('Response:', response);
-  return applicableAudiences;
+  await Promise.all([formSegmentsPromises, alloyLoadedPromise]);
+  const { segmentIds, offers } = await getAudiences({}, {});
+  return { audiences: [...nativeAudiences, ...segmentIds], offers };
 }
+
+export async function refreshAudiencesAndOffers(key, value) {
+  const xdm = getXDMMappedData(key, value, xdmData);
+  const { segmentIds, offers } = await getAudiences(xdm, {});
+  return { audiences: [...nativeAudiences, ...segmentIds], offers };
+}
+
+getCustomFunctions();

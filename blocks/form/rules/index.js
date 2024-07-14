@@ -17,7 +17,7 @@
  * Adobe permits you to use and modify this file solely in accordance with
  * the terms of the Adobe license agreement accompanying it.
  ************************************************************************ */
-import { DEFAULT_OPTIONS, resolveAudiences } from '../martech/index.js';
+import { DEFAULT_OPTIONS, getAudienceAndOffers, refreshAudiencesAndOffers } from '../martech/index.js';
 import { submitSuccess, submitFailure } from '../submit.js';
 import {
   createHelpText, createLabel, updateOrCreateInvalidMsg, getCheckboxGroupValue,
@@ -215,12 +215,31 @@ function handleRuleEngineEvent(e, form, generateFormRendition) {
   }
 }
 
+function applyOffers(properties, offers, formModel) {
+  const data = {};
+  if (properties?.placementFieldMappings) {
+    const placementFieldMappings = JSON.parse(properties.placementFieldMappings);
+    placementFieldMappings?.forEach((mapping) => {
+      const { placementId, fieldName, fieldId } = mapping;
+      if (offers[placementId]) {
+        if (formModel) {
+          formModel.getElement(fieldId).value = offers[placementId]?.content || undefined;
+        } else {
+          data[fieldName] = offers[placementId]?.content || undefined;
+        }
+      }
+    });
+  }
+  return data;
+}
+
 function applyRuleEngine(htmlForm, form, captcha) {
   htmlForm.addEventListener('change', (e) => {
     const field = e.target;
     const {
       id, value, name, checked,
     } = field;
+    const fieldModel = form.getElement(id);
     if ((field.type === 'checkbox' && field.dataset.fieldType === 'checkbox-group')) {
       const val = getCheckboxGroupValue(name, htmlForm);
       const el = form.getElement(name);
@@ -229,13 +248,20 @@ function applyRuleEngine(htmlForm, form, captcha) {
       const el = form.getElement(name);
       el.value = value;
     } else if (field.type === 'checkbox') {
-      form.getElement(id).value = checked ? value : field.dataset.uncheckedValue;
+      fieldModel.value = checked ? value : field.dataset.uncheckedValue;
     } else if (field.type === 'file') {
-      form.getElement(id).value = Array.from(e?.detail?.files || field.files);
+      fieldModel.value = Array.from(e?.detail?.files || field.files);
     } else if (field.selectedOptions) {
-      form.getElement(id).value = [...field.selectedOptions].map((option) => option.value);
+      fieldModel.value = [...field.selectedOptions].map((option) => option.value);
     } else {
-      form.getElement(id).value = value;
+      fieldModel.value = value;
+    }
+    if (fieldModel && fieldModel?.properties?.enableProfile) {
+      refreshAudiencesAndOffers(fieldModel.properties.xdmDataRef, value)
+        .then(({ audiences, offers }) => {
+          form.getElement(DEFAULT_OPTIONS.audiencesFieldId).value = audiences;
+          applyOffers(form.properties, offers, form);
+        });
     }
     // console.log(JSON.stringify(form.exportData(), null, 2));
   });
@@ -305,13 +331,16 @@ async function fetchData({ id }) {
 }
 
 export async function initAdaptiveForm(formDef, createForm) {
-  const audiences = await resolveAudiences();
-  const data = await fetchData(formDef);
-  data[DEFAULT_OPTIONS.audiencesDataAttribute] = audiences;
+  const segmentsStr = formDef?.properties?.segments;
+  const segments = segmentsStr ? JSON.parse(segmentsStr) : {};
+  const { audiences, offers } = await getAudienceAndOffers(segments);
+  const prefillData = await fetchData(formDef);
+  const offersData = applyOffers(formDef.properties, offers);
+  offersData[DEFAULT_OPTIONS.audiencesDataAttribute] = audiences;
   await registerCustomFunctions();
   const form = await initializeRuleEngineWorker({
     ...formDef,
-    data,
+    data: { ...prefillData, ...offersData },
   }, createForm);
   return form;
 }
