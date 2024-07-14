@@ -3470,6 +3470,9 @@ class Field extends Scriptable {
     ruleNodeReference() {
         if (this.type?.endsWith('[]')) {
             this._ruleNodeReference = [];
+            if (typeof this._jsonModel.default !== 'undefined') {
+                this._updateRuleNodeReference(this._jsonModel.value);
+            }
         }
         else {
             this._ruleNodeReference = this;
@@ -4112,6 +4115,7 @@ class Field extends Scriptable {
         if (dataNode !== undefined && dataNode !== NullDataValue && dataNode.$value !== this._jsonModel.value) {
             const changeAction = propertyChange('value', dataNode.$value, this._jsonModel.value);
             this._jsonModel.value = dataNode.$value;
+            this._updateRuleNodeReference(this._jsonModel.value);
             this.queueEvent(changeAction);
         }
     }
