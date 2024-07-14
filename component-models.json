@@ -607,6 +607,19 @@
                     },
                     {
                         "component": "boolean",
+                        "name": "enableProfile",
+                        "label": "Enable Profile",
+                        "valueType": "boolean"
+                    },
+                    {
+                        "component": "text",
+                        "name": "xdmDataRef",
+                        "label": "XDM Bind reference",
+                        "valueType": "string",
+                        "condition": { "==": [{ "var": "enableProfile" }, true] }
+                    },
+                    {
+                        "component": "boolean",
                         "name": "visible",
                         "label": "Show Component",
                         "valueType": "boolean",
