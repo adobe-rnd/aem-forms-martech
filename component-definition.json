@@ -357,7 +357,8 @@
                     "page": {
                         "resourceType": "core/fd/components/form/textinput/v1/textinput",
                         "template": {
-                            "fieldType": "hero",
+                          "fieldType": "text-input",
+                            "fd:viewType": "hero-input",
                             "enabled": true,
                             "visible": true,
                             "readOnly": true
