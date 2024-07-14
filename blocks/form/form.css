@@ -119,7 +119,7 @@ main .form select {
     background-color: var(--form-input-background-color);
     border: var(--form-input-border-size) solid var(--form-input-border-color);
     width: 100%;
-    height: 42px;
+    height: 40px;
     color: var(--form-label-color);
     padding: var(--form-input-padding);
     font-size: var(--form-input-font-size);
@@ -549,4 +549,8 @@ main form .wizard > .current-wizard-step.panel-wrapper:last-of-type ~ .wizard-bu
 
 .field-audience {
     display: none;
+}
+
+main .form form input:read-only {
+    border: none;
 }
