@@ -335,7 +335,7 @@ async function fetchData({ id }) {
 
 export async function initAdaptiveForm(formDef, createForm) {
   const segmentsStr = formDef?.properties?.segments;
-  const segments = segmentsStr ? JSON.parse(segmentsStr) : {};
+  const segments = segmentsStr ? JSON.parse(segmentsStr) : [];
   const { audiences, offers } = await getAudienceAndOffers(segments);
   const prefillData = await fetchData(formDef);
   const offersData = applyOffers(formDef.properties, offers);

@@ -63,7 +63,7 @@ function resolveFormSegments(formSegments) {
   const { innerWidth: width, innerHeight: height } = window;
   const data = { width, height };
   nativeAudiences = [];
-  const promises = formSegments.reduce((acc, { name, expr }) => {
+  const promises = formSegments?.reduce((acc, { name, expr }) => {
     const result = jsonFormula(data, {}, expr, functions);
     if (result) {
       acc.push(name);
