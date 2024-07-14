@@ -28,5 +28,17 @@ function days(endDate, startDate) {
   return Math.floor(diffInMs / (1000 * 60 * 60 * 24));
 }
 
+function isReturningVisitor() {
+  const isReturning = document.cookie.indexOf('visitorId=') !== -1;
+  if (!isReturning) {
+    let expires = '';
+    const date = new Date();
+    date.setTime(date.getTime() + (10 * 24 * 60 * 60 * 1000));
+    expires = `; expires=${date.toUTCString()}`;
+    document.cookie = `visitorId=id-${Date.now()}${expires}; path=/`;
+  }
+  return isReturning;
+}
+
 // eslint-disable-next-line import/prefer-default-export
-export { getFullName, days };
+export { getFullName, days, isReturningVisitor };
