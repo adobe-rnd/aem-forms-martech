@@ -57,7 +57,8 @@
       "radio-group",
       "text-input",
       "wizard",
-      "hero-input"
+      "hero-input",
+      "range"
     ]
   }
 ]

@@ -1,6 +1,6 @@
 import { loadCSS } from '../../scripts/aem.js';
 
-let customComponents = ['hero'];
+let customComponents = ['hero', 'range'];
 
 export function setCustomComponents(components) {
   customComponents = components;
@@ -59,6 +59,10 @@ export default async function componentDecorator(element, fd, container) {
 
   if (type.endsWith('wizard')) {
     await loadComponent('wizard', element, fd, container);
+  }
+
+  if (type === 'hero-input') {
+    await loadComponent('hero', element, fd, container);
   }
 
   if (getCustomComponents().includes(type)) {
