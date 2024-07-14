@@ -48,7 +48,8 @@ function extractOffersDecisions(response) {
 
 export async function getAudiences(xdm, data) {
   const response = await window.alloy('sendEvent', {
-    renderDecisions: true,
+    renderDecisions: false,
+    type: 'form.view',
     data,
     xdm,
     decisionScopes: [
