@@ -1,0 +1,23 @@
+main .form form .field-welcome {
+    margin: 0 auto;
+    width: 50%;
+}
+
+main .form form .field-welcome input {
+    font-size: 1em;
+    font-weight: bold;
+}
+
+main .form form .wizard {
+    padding: 0;
+}
+
+main .form form .wizard > ul {
+    margin: 0 auto;
+}
+
+
+.hero-input input,
+.hero-input label {
+    display: none;
+}
