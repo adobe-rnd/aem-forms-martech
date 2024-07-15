@@ -4,8 +4,14 @@ import { jsonFormula } from '../rules/formula/index.js';
 import { getAudiences, getXDMMappedData, initWebSDK } from './event.js';
 import * as module from '../functions.js';
 
+// TODO - Store it in form definition or fix it
+export function getAudienceAttribute() {
+  const { location } = window;
+  if (location.pathname.includes('cc-ajo')) return 'dropdown-ecb9e5982c';
+  return 'dropdown-69f3908846';
+}
+
 export const DEFAULT_OPTIONS = {
-  audiencesFieldId: 'dropdown-76276b6656',
   audiencesDataAttribute: '__audience__',
   audiencesMetaTagPrefix: 'audience',
   audiencesQueryParameter: 'audience',
@@ -61,7 +67,9 @@ function getCustomFunctions() {
 
 function resolveFormSegments(formSegments) {
   const { innerWidth: width, innerHeight: height } = window;
-  const data = { width, height };
+  const parameters = new URLSearchParams(window.location.search);
+  const queryData = Object.fromEntries(parameters.entries());
+  const data = { width, height, ...queryData };
   nativeAudiences = [];
   const promises = formSegments?.reduce((acc, { name, expr }) => {
     const result = jsonFormula(data, {}, expr, functions);

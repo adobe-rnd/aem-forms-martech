@@ -39,9 +39,11 @@ function extractSegments(response) {
 function extractOffersDecisions(response) {
   return response?.decisions?.reduce((acc, offer) => {
     const { id, name } = offer.placement;
-    const { format } = offer?.items?.[0]?.data || {};
+    const { format, characteristics } = offer?.items?.[0]?.data || {};
     const content = offer.items[0].data.content || offer.items[0].data.deliveryURL;
-    acc[id] = { format, content, name };
+    acc[id] = {
+      format, content, name, characteristics,
+    };
     return acc;
   }, {});
 }
@@ -55,6 +57,7 @@ export async function getAudiences(xdm, data) {
     decisionScopes: [
       'eyJ4ZG06YWN0aXZpdHlJZCI6Inhjb3JlOm9mZmVyLWFjdGl2aXR5OjE5MWI5ZDM5OWRiNDUyOTgiLCJ4ZG06cGxhY2VtZW50SWQiOiJ4Y29yZTpvZmZlci1wbGFjZW1lbnQ6MTkxYjk3ZjJmZjMzOTU5NiJ9',
       'eyJ4ZG06YWN0aXZpdHlJZCI6Inhjb3JlOm9mZmVyLWFjdGl2aXR5OjE5MWI5ZDM5OWRiNDUyOTgiLCJ4ZG06cGxhY2VtZW50SWQiOiJ4Y29yZTpvZmZlci1wbGFjZW1lbnQ6MTkxYjk3ZDMyNzJiNDg2MSJ9',
+      'eyJ4ZG06YWN0aXZpdHlJZCI6Inhjb3JlOm9mZmVyLWFjdGl2aXR5OjE5MjdhNGViZDcwNzZhMzUiLCJ4ZG06cGxhY2VtZW50SWQiOiJ4Y29yZTpvZmZlci1wbGFjZW1lbnQ6MTkyN2EzOGNkNDZiMzhlYSJ9',
     ],
   });
   const segmentIds = extractSegments(response);

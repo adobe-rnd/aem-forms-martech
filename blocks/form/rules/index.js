@@ -17,7 +17,9 @@
  * Adobe permits you to use and modify this file solely in accordance with
  * the terms of the Adobe license agreement accompanying it.
  ************************************************************************ */
-import { DEFAULT_OPTIONS, getAudienceAndOffers, refreshAudiencesAndOffers } from '../martech/index.js';
+import {
+  DEFAULT_OPTIONS, getAudienceAndOffers, getAudienceAttribute, refreshAudiencesAndOffers,
+} from '../martech/index.js';
 import { submitSuccess, submitFailure } from '../submit.js';
 import {
   createHelpText, createLabel, updateOrCreateInvalidMsg, getCheckboxGroupValue,
@@ -222,13 +224,26 @@ function applyOffers(properties, offers, formModel) {
   const data = {};
   if (properties?.placementFieldMappings) {
     const placementFieldMappings = JSON.parse(properties.placementFieldMappings);
+    const offerCharacteristicMapping = JSON.parse(properties.offerCharacteristicMapping || '[]');
     placementFieldMappings?.forEach((mapping) => {
       const { placementId, fieldName, fieldId } = mapping;
-      if (offers[placementId]) {
+      const offer = offers[placementId];
+      if (offer) {
         if (formModel) {
-          formModel.getElement(fieldId).value = offers[placementId]?.content || undefined;
+          formModel.getElement(fieldId).value = offer?.content || undefined;
         } else {
-          data[fieldName] = offers[placementId]?.content || undefined;
+          data[fieldName] = offer?.content || undefined;
+        }
+        if (offer?.characteristics) {
+          Object.keys(offer?.characteristics).forEach((key) => {
+            const { fieldId: id, fieldName: name } = offerCharacteristicMapping
+              .find((x) => x.fieldName === key) || {};
+            if (formModel && id) {
+              formModel.getElement(id).value = offer?.characteristics?.[key];
+            } else {
+              data[name] = offer?.characteristics?.[key];
+            }
+          });
         }
       }
     });
@@ -262,7 +277,7 @@ function applyRuleEngine(htmlForm, form, captcha) {
     if (fieldModel && fieldModel?.properties?.enableProfile) {
       refreshAudiencesAndOffers(fieldModel.properties.xdmDataRef, value)
         .then(({ audiences, offers }) => {
-          form.getElement(DEFAULT_OPTIONS.audiencesFieldId).value = audiences;
+          form.getElement(getAudienceAttribute()).value = audiences;
           applyOffers(form.properties, offers, form);
         });
     }
