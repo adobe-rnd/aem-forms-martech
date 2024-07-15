@@ -8,6 +8,7 @@ import * as module from '../functions.js';
 export function getAudienceAttribute() {
   const { location } = window;
   if (location.pathname.includes('cc-ajo')) return 'dropdown-ecb9e5982c';
+  if (location.pathname.includes('cc-native')) return 'dropdown-fa1f1bb82a';
   return 'dropdown-69f3908846';
 }
 
