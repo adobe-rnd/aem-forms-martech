@@ -378,8 +378,7 @@
                           "fieldType": "text-input",
                             "fd:viewType": "hero-input",
                             "enabled": true,
-                            "visible": true,
-                            "readOnly": true
+                            "visible": true
                         }
                     }
                 }

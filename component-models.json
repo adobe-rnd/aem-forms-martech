@@ -1867,7 +1867,7 @@
             {
                 "component": "reference",
                 "valueType": "string",
-                "name": "fileReference",
+                "name": "value",
                 "label": "Image",
                 "multi": false
             },
