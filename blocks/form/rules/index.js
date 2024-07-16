@@ -33,6 +33,37 @@ function disableElement(el, value) {
   el.toggleAttribute('aria-readonly', value === true);
 }
 
+function applyOffers(properties, offers, formModel) {
+  const data = {};
+  if (properties?.placementFieldMappings) {
+    const placementFieldMappings = JSON.parse(properties.placementFieldMappings);
+    const offerCharacteristicMapping = JSON.parse(properties.offerCharacteristicMapping || '[]');
+    placementFieldMappings?.forEach((mapping) => {
+      const { placementId, fieldName, fieldId } = mapping;
+      const offer = offers[placementId];
+      if (offer) {
+        if (formModel) {
+          formModel.getElement(fieldId).value = offer?.content || undefined;
+        } else {
+          data[fieldName] = offer?.content || undefined;
+        }
+        if (offer?.characteristics) {
+          Object.keys(offer?.characteristics).forEach((key) => {
+            const { fieldId: id, fieldName: name } = offerCharacteristicMapping
+              .find((x) => x.fieldName === key) || {};
+            if (formModel && id) {
+              formModel.getElement(id).value = offer?.characteristics?.[key];
+            } else {
+              data[name] = offer?.characteristics?.[key];
+            }
+          });
+        }
+      }
+    });
+  }
+  return data;
+}
+
 function compare(fieldVal, htmlVal, type) {
   if (type === 'number') {
     return fieldVal === Number(htmlVal);
@@ -52,7 +83,7 @@ function handleActiveChild(id, form) {
   }
 }
 
-async function fieldChanged(payload, form, generateFormRendition) {
+async function fieldChanged(payload, form, generateFormRendition, formModel) {
   const { changes, field: fieldModel } = payload;
   const {
     id, fieldType, readOnly, type, displayValue, displayFormat, displayValueExpression,
@@ -104,6 +135,14 @@ async function fieldChanged(payload, form, generateFormRendition) {
           field.innerHTML = currentValue;
         } else if (field.type !== 'file') {
           field.value = currentValue;
+        }
+
+        if (fieldModel && fieldModel?.properties?.enableProfile) {
+          refreshAudiencesAndOffers(fieldModel.properties.xdmDataRef, currentValue)
+            .then(({ audiences, offers }) => {
+              formModel.getElement(getAudienceAttribute()).value = audiences;
+              applyOffers(formModel.properties, offers, formModel);
+            });
         }
         break;
       case 'visible':
@@ -207,10 +246,10 @@ function formChanged(payload, form) {
   });
 }
 
-function handleRuleEngineEvent(e, form, generateFormRendition) {
+function handleRuleEngineEvent(e, form, generateFormRendition, formModel) {
   const { type, payload } = e;
   if (type === 'fieldChanged') {
-    fieldChanged(payload, form, generateFormRendition);
+    fieldChanged(payload, form, generateFormRendition, formModel);
   } else if (type === 'change') {
     formChanged(payload, form);
   } else if (type === 'submitSuccess') {
@@ -218,37 +257,6 @@ function handleRuleEngineEvent(e, form, generateFormRendition) {
   } else if (type === 'submitFailure') {
     submitFailure(e, form);
   }
-}
-
-function applyOffers(properties, offers, formModel) {
-  const data = {};
-  if (properties?.placementFieldMappings) {
-    const placementFieldMappings = JSON.parse(properties.placementFieldMappings);
-    const offerCharacteristicMapping = JSON.parse(properties.offerCharacteristicMapping || '[]');
-    placementFieldMappings?.forEach((mapping) => {
-      const { placementId, fieldName, fieldId } = mapping;
-      const offer = offers[placementId];
-      if (offer) {
-        if (formModel) {
-          formModel.getElement(fieldId).value = offer?.content || undefined;
-        } else {
-          data[fieldName] = offer?.content || undefined;
-        }
-        if (offer?.characteristics) {
-          Object.keys(offer?.characteristics).forEach((key) => {
-            const { fieldId: id, fieldName: name } = offerCharacteristicMapping
-              .find((x) => x.fieldName === key) || {};
-            if (formModel && id) {
-              formModel.getElement(id).value = offer?.characteristics?.[key];
-            } else {
-              data[name] = offer?.characteristics?.[key];
-            }
-          });
-        }
-      }
-    });
-  }
-  return data;
 }
 
 function applyRuleEngine(htmlForm, form, captcha) {
@@ -273,13 +281,6 @@ function applyRuleEngine(htmlForm, form, captcha) {
       fieldModel.value = [...field.selectedOptions].map((option) => option.value);
     } else {
       fieldModel.value = value;
-    }
-    if (fieldModel && fieldModel?.properties?.enableProfile) {
-      refreshAudiencesAndOffers(fieldModel.properties.xdmDataRef, value)
-        .then(({ audiences, offers }) => {
-          form.getElement(getAudienceAttribute()).value = audiences;
-          applyOffers(form.properties, offers, form);
-        });
     }
     // console.log(JSON.stringify(form.exportData(), null, 2));
   });
@@ -313,11 +314,11 @@ export async function loadRuleEngine(formDef, htmlForm, captcha, genFormRenditio
   window.myForm = form;
 
   form.subscribe((e) => {
-    handleRuleEngineEvent(e, htmlForm, genFormRendition);
+    handleRuleEngineEvent(e, htmlForm, genFormRendition, form);
   }, 'fieldChanged');
 
   form.subscribe((e) => {
-    handleRuleEngineEvent(e, htmlForm, genFormRendition);
+    handleRuleEngineEvent(e, htmlForm, genFormRendition, form);
   }, 'change');
 
   form.subscribe((e) => {
