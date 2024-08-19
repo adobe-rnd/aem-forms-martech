@@ -17,8 +17,11 @@
  * Adobe permits you to use and modify this file solely in accordance with
  * the terms of the Adobe license agreement accompanying it.
  ************************************************************************ */
-import { generateFormRendition } from '../blocks/form/form.js';
+import decorate, { generateFormRendition } from '../blocks/form/form.js';
 import { loadCSS } from './aem.js';
+
+window.currentMode = 'preview';
+let activeWizardStep;
 
 export function getItems(container) {
   if (container[':itemsOrder'] && container[':items']) {
@@ -46,6 +49,17 @@ export function getFieldById(panel, id, formFieldMap) {
     });
   }
   return field;
+}
+
+export function handleWizardNavigation(wizardEl, navigateTo) {
+  const existingSelectedEl = wizardEl.querySelector('.current-wizard-step');
+  existingSelectedEl.classList.remove('current-wizard-step');
+  navigateTo.classList.add('current-wizard-step');
+  activeWizardStep = navigateTo.dataset.id;
+  const navigateToMenuItem = wizardEl.querySelector(`li[data-index="${navigateTo.dataset.index}"]`);
+  const currentMenuItem = wizardEl.querySelector('.wizard-menu-active-item');
+  currentMenuItem.classList.remove('wizard-menu-active-item');
+  navigateToMenuItem.classList.add('wizard-menu-active-item');
 }
 
 function generateFragmentRendition(fragmentFieldWrapper, fragmentDefinition) {
@@ -137,16 +151,6 @@ export function annotateFormForEditing(formEl, formDefinition) {
   annotateItems(formEl.childNodes, formDefinition, formFieldMap);
 }
 
-function handleWizardNavigation(wizardEl, navigateTo) {
-  const existingSelectedEl = wizardEl.querySelector('.current-wizard-step');
-  existingSelectedEl.classList.remove('current-wizard-step');
-  navigateTo.classList.add('current-wizard-step');
-  const navigateToMenuItem = wizardEl.querySelector(`li[data-index="${navigateTo.dataset.index}"]`);
-  const currentMenuItem = wizardEl.querySelector('.wizard-menu-active-item');
-  currentMenuItem.classList.remove('wizard-menu-active-item');
-  navigateToMenuItem.classList.add('wizard-menu-active-item');
-}
-
 /**
  * Event listener for aue:ui-select, selection of a component
  */
@@ -169,12 +173,35 @@ function handleEditorSelect(event) {
   }
 }
 
-async function annotateFormsForEditing(forms) {
-  forms.forEach(async (form) => {
+async function renderFormBlock(form, editMode) {
+  const block = form.closest('.block[data-aue-resource]');
+  if ((editMode && !block.classList.contains('edit-mode')) || !editMode) {
+    block.classList.toggle('edit-mode', editMode);
     const formDefResp = await fetch(`${form.dataset.formpath}.model.json`);
     const formDef = await formDefResp.json();
-    console.log('formDef', formDef);
-    annotateFormForEditing(form, formDef);
+    const div = form.parentElement;
+    div.replaceChildren();
+    const pre = document.createElement('pre');
+    const code = document.createElement('code');
+    code.textContent = JSON.stringify(formDef);
+    pre.appendChild(code);
+    div.appendChild(pre);
+    await decorate(block);
+    return {
+      formEl: block.querySelector('form'),
+      formDef,
+    };
+  }
+  return null;
+}
+
+async function annotateFormsForEditing(forms) {
+  if (typeof window.currentMode !== 'undefined' && window.currentMode === 'preview') return;
+  forms.forEach(async (form) => {
+    const { formEl, formDef } = (await renderFormBlock(form, true)) || {};
+    if (formEl && formDef) {
+      annotateFormForEditing(formEl, formDef);
+    }
   });
 }
 
@@ -209,7 +236,7 @@ function decode(rawContent) {
   return JSON.parse(cleanUp(content));
 }
 
-async function applyChanges(event) {
+export async function applyChanges(event) {
   // redecorate default content and blocks on patches (in the properties rail)
   const { detail } = event;
 
@@ -236,17 +263,19 @@ async function applyChanges(event) {
         const jsonContent = codeEl?.textContent;
         if (jsonContent) {
           const formDef = decode(jsonContent);
-          let panelLabel;
           if (element.classList.contains('panel-wrapper')) {
             element = element.parentNode;
-            panelLabel = element.querySelector('legend');
           }
           const parent = element.closest('.panel-wrapper') || element.closest('form') || element.querySelector('form');
           const parentDef = getFieldById(formDef, parent.dataset.id, {});
-          if (parent.classList.contains('panel-wrapper') && panelLabel) {
+          if (parent.classList.contains('panel-wrapper')) {
+            const panelLabel = parent.querySelector('legend');
             parent.replaceChildren(panelLabel);
           } else {
             parent.replaceChildren();
+          }
+          if (parent.hasAttribute('data-component-status')) {
+            parent.removeAttribute('data-component-status');
           }
           await generateFormRendition(parentDef, parent, getItems);
           annotateItems(parent.childNodes, formDef, {});
@@ -275,19 +304,17 @@ function attachEventListners(main) {
   main?.addEventListener('aue:ui-select', handleEditorSelect);
 
   document.body.addEventListener('aue:ui-preview', () => {
+    window.currentMode = 'preview';
     const forms = document.querySelectorAll('form');
-    forms.forEach((formEl) => {
-      formEl.classList.remove('edit-mode');
+    forms.forEach(async (form) => {
+      await renderFormBlock(form, false);
     });
   });
 
   document.body.addEventListener('aue:ui-edit', () => {
+    window.currentMode = 'edit';
     const forms = document.querySelectorAll('form');
-    forms.forEach((formEl) => {
-      if (!formEl.classList.contains('edit-mode')) {
-        formEl.classList.add('edit-mode');
-      }
-    });
+    annotateFormsForEditing(forms);
   });
 }
 
