@@ -25,28 +25,6 @@ paths:
                           type: string
                         lastName:
                           type: string
-              example:
-                players: 
-                  - firstName: "Caleb"
-                    lastName: "Williams"
-                  - firstName: "Olu"
-                    lastName: "Fashanu"
-                  - firstName: "Brock"
-                    lastName: "Bowers"
-                  - firstName: "Jer Zhan"
-                    lastName: "Newton"
-                  - firstName: "Drake"
-                    lastName: "Maye"
-                  - firstName: "Jayden"
-                    lastName: "Daniels"
-                  - firstName: "Joe"
-                    lastName: "Alt"
-                  - firstName: "Dallas"
-                    lastName: "Turner"
-                  - firstName: "Marvin"
-                    lastName: "Harrison Jr"
-                  - firstName: "Malik"
-                    lastName: "Nabers"
   /players/{player}/questions:
     get:
       summary: Get questions related to a selected player
@@ -78,12 +56,3 @@ paths:
                             type: string
                         answer:
                           type: string
-              example:
-                questions: 
-                  - question: "WHO SINGS CALEB WILLIAMS WARM UP SONG?"
-                    options: 
-                      - "JOHN LEGEND"
-                      - "POST MALONE"
-                      - "RIHANNA"
-                      - "BRUNO MARS"
-                    answer: "JOHN LEGEND"
