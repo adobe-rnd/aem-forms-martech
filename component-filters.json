@@ -60,7 +60,8 @@
       "text-input",
       "wizard",
       "hero-input",
-      "range"
+      "range",
+      "tnc"
     ]
   }
 ]
