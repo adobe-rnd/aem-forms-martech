@@ -6,11 +6,11 @@
   },
   "servers": [
     {
-      "url": "https://main--aem-forms-martech--adobe-rnd.hlx.live/"
+      "url": "https://main--aem-forms-martech--adobe-rnd.hlx.live/data/"
     }
   ],
   "paths": {
-    "/players": {
+    "/players.json": {
       "get": {
         "summary": "Get player details",
         "responses": {
@@ -27,7 +27,7 @@
         }
       }
     },
-    "/players/{player}/questions": {
+    "/players/{player}/questions.json": {
       "get": {
         "summary": "Get questions related to a selected player",
         "parameters": [
