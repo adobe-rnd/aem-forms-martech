@@ -33,7 +33,7 @@ paths:
                     lastName: "Fashanu"
                   - firstName: "Brock"
                     lastName: "Bowers"
-                  - firstName: "Jer'Zhan"
+                  - firstName: "Jer Zhan"
                     lastName: "Newton"
                   - firstName: "Drake"
                     lastName: "Maye"
@@ -44,7 +44,7 @@ paths:
                   - firstName: "Dallas"
                     lastName: "Turner"
                   - firstName: "Marvin"
-                    lastName: "Harrison Jr."
+                    lastName: "Harrison Jr"
                   - firstName: "Malik"
                     lastName: "Nabers"
   /players/{player}/questions:
@@ -80,7 +80,7 @@ paths:
                           type: string
               example:
                 questions: 
-                  - question: "WHO SINGS CALEB WILLIAMS’ WARM UP SONG?"
+                  - question: "WHO SINGS CALEB WILLIAMS WARM UP SONG?"
                     options: 
                       - "JOHN LEGEND"
                       - "POST MALONE"
