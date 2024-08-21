@@ -570,3 +570,7 @@ main .form form input:read-only {
 main form .wizard .wizard-button-next, main form .wizard .wizard-button-prev, .wizard-menu-items {
     display: none;
 }
+
+.plain-text-wrapper {
+    text-align: center;
+}
