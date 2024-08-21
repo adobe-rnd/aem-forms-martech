@@ -1,0 +1,48 @@
+.image-choice-container .model-list-wrapper {
+    display: flex;
+    gap: 50px;
+    list-style-type: none;
+}
+
+.model-list-wrapper > li {
+    border: 1px solid rgb(0, 79, 255);
+    border-radius: 4px;
+    max-width: 212px;
+    position: relative;
+}
+
+.vs-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.vertical-line {
+    height: 15px;
+    width: 1px;
+    background-color: #000;
+    margin-left: 0;
+}
+
+.vs-container p {
+    font-size: small !important;
+    margin-bottom: 0 !important;
+}
+
+.model-radio {
+    height: 100%;
+    padding: 0;
+    width: 100%;
+    position: absolute;
+    appearance: none;
+    cursor: pointer;
+}
+
+.model-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}

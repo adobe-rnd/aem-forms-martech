@@ -113,7 +113,7 @@ main .form form .field-invalid .field-description {
     font-weight: 700;
 }
 
-main .form input,
+main .form input:not(.model-radio),
 main .form textarea,
 main .form select {
     background-color: var(--form-input-background-color);
@@ -142,7 +142,7 @@ main .form input[type='file'] {
 }
 
 main .form input[type='checkbox'],
-main .form input[type='radio'] {
+main .form input[type='radio']:not(.model-radio) {
     width: 16px;
     height: 16px;
     flex: none;

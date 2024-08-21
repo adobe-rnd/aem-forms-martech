@@ -307,6 +307,62 @@
                         "valueType": "boolean"
                     }
                 ]
+            },
+            {
+                "component": "select",
+                "label": "Col Span",
+                "name": "colspan",
+                "valueType": "string",
+                "options": [
+                    {
+                        "name": "1",
+                        "value": "1"
+                    },
+                    {
+                        "name": "2",
+                        "value": "2"
+                    },
+                    {
+                        "name": "3",
+                        "value": "3"
+                    },
+                    {
+                        "name": "4",
+                        "value": "4"
+                    },
+                    {
+                        "name": "5",
+                        "value": "5"
+                    },
+                    {
+                        "name": "6",
+                        "value": "6"
+                    },
+                    {
+                        "name": "7",
+                        "value": "7"
+                    },
+                    {
+                        "name": "8",
+                        "value": "8"
+                    },
+                    {
+                        "name": "9",
+                        "value": "9"
+                    },
+                    {
+                        "name": "10",
+                        "value": "10"
+                    },
+                    {
+                        "name": "11",
+                        "value": "11"
+                    },
+                    {
+                        "name": "12",
+                        "value": "12"
+                    }
+                ]
             }
         ]
     },
@@ -490,6 +546,62 @@
                         "valueType": "string",
                         "label": "Pattern Error message",
                         "description": "Error message shown when the pattern is not matched."
+                    }
+                ]
+            },
+            {
+                "component": "select",
+                "label": "Col Span",
+                "name": "colspan",
+                "valueType": "string",
+                "options": [
+                    {
+                        "name": "1",
+                        "value": "1"
+                    },
+                    {
+                        "name": "2",
+                        "value": "2"
+                    },
+                    {
+                        "name": "3",
+                        "value": "3"
+                    },
+                    {
+                        "name": "4",
+                        "value": "4"
+                    },
+                    {
+                        "name": "5",
+                        "value": "5"
+                    },
+                    {
+                        "name": "6",
+                        "value": "6"
+                    },
+                    {
+                        "name": "7",
+                        "value": "7"
+                    },
+                    {
+                        "name": "8",
+                        "value": "8"
+                    },
+                    {
+                        "name": "9",
+                        "value": "9"
+                    },
+                    {
+                        "name": "10",
+                        "value": "10"
+                    },
+                    {
+                        "name": "11",
+                        "value": "11"
+                    },
+                    {
+                        "name": "12",
+                        "value": "12"
                     }
                 ]
             }
@@ -682,6 +794,62 @@
                         ]
                     }
                 ]
+            },
+            {
+                "component": "select",
+                "label": "Col Span",
+                "name": "colspan",
+                "valueType": "string",
+                "options": [
+                    {
+                        "name": "1",
+                        "value": "1"
+                    },
+                    {
+                        "name": "2",
+                        "value": "2"
+                    },
+                    {
+                        "name": "3",
+                        "value": "3"
+                    },
+                    {
+                        "name": "4",
+                        "value": "4"
+                    },
+                    {
+                        "name": "5",
+                        "value": "5"
+                    },
+                    {
+                        "name": "6",
+                        "value": "6"
+                    },
+                    {
+                        "name": "7",
+                        "value": "7"
+                    },
+                    {
+                        "name": "8",
+                        "value": "8"
+                    },
+                    {
+                        "name": "9",
+                        "value": "9"
+                    },
+                    {
+                        "name": "10",
+                        "value": "10"
+                    },
+                    {
+                        "name": "11",
+                        "value": "11"
+                    },
+                    {
+                        "name": "12",
+                        "value": "12"
+                    }
+                ]
             }
         ]
     },
@@ -817,6 +985,62 @@
                         "label": "Maximum Value",
                         "valueType": "number",
                         "description": "Maximum length of the text in the field"
+                    }
+                ]
+            },
+            {
+                "component": "select",
+                "label": "Col Span",
+                "name": "colspan",
+                "valueType": "string",
+                "options": [
+                    {
+                        "name": "1",
+                        "value": "1"
+                    },
+                    {
+                        "name": "2",
+                        "value": "2"
+                    },
+                    {
+                        "name": "3",
+                        "value": "3"
+                    },
+                    {
+                        "name": "4",
+                        "value": "4"
+                    },
+                    {
+                        "name": "5",
+                        "value": "5"
+                    },
+                    {
+                        "name": "6",
+                        "value": "6"
+                    },
+                    {
+                        "name": "7",
+                        "value": "7"
+                    },
+                    {
+                        "name": "8",
+                        "value": "8"
+                    },
+                    {
+                        "name": "9",
+                        "value": "9"
+                    },
+                    {
+                        "name": "10",
+                        "value": "10"
+                    },
+                    {
+                        "name": "11",
+                        "value": "11"
+                    },
+                    {
+                        "name": "12",
+                        "value": "12"
                     }
                 ]
             }
@@ -1009,6 +1233,62 @@
                         ]
                     }
                 ]
+            },
+            {
+                "component": "select",
+                "label": "Col Span",
+                "name": "colspan",
+                "valueType": "string",
+                "options": [
+                    {
+                        "name": "1",
+                        "value": "1"
+                    },
+                    {
+                        "name": "2",
+                        "value": "2"
+                    },
+                    {
+                        "name": "3",
+                        "value": "3"
+                    },
+                    {
+                        "name": "4",
+                        "value": "4"
+                    },
+                    {
+                        "name": "5",
+                        "value": "5"
+                    },
+                    {
+                        "name": "6",
+                        "value": "6"
+                    },
+                    {
+                        "name": "7",
+                        "value": "7"
+                    },
+                    {
+                        "name": "8",
+                        "value": "8"
+                    },
+                    {
+                        "name": "9",
+                        "value": "9"
+                    },
+                    {
+                        "name": "10",
+                        "value": "10"
+                    },
+                    {
+                        "name": "11",
+                        "value": "11"
+                    },
+                    {
+                        "name": "12",
+                        "value": "12"
+                    }
+                ]
             }
         ]
     },
@@ -1146,6 +1426,62 @@
                         "valueType": "string"
                     }
                 ]
+            },
+            {
+                "component": "select",
+                "label": "Col Span",
+                "name": "colspan",
+                "valueType": "string",
+                "options": [
+                    {
+                        "name": "1",
+                        "value": "1"
+                    },
+                    {
+                        "name": "2",
+                        "value": "2"
+                    },
+                    {
+                        "name": "3",
+                        "value": "3"
+                    },
+                    {
+                        "name": "4",
+                        "value": "4"
+                    },
+                    {
+                        "name": "5",
+                        "value": "5"
+                    },
+                    {
+                        "name": "6",
+                        "value": "6"
+                    },
+                    {
+                        "name": "7",
+                        "value": "7"
+                    },
+                    {
+                        "name": "8",
+                        "value": "8"
+                    },
+                    {
+                        "name": "9",
+                        "value": "9"
+                    },
+                    {
+                        "name": "10",
+                        "value": "10"
+                    },
+                    {
+                        "name": "11",
+                        "value": "11"
+                    },
+                    {
+                        "name": "12",
+                        "value": "12"
+                    }
+                ]
             }
         ]
     },
@@ -1250,6 +1586,62 @@
                         "name": "tooltip",
                         "label": "Short description",
                         "valueType": "string"
+                    }
+                ]
+            },
+            {
+                "component": "select",
+                "label": "Col Span",
+                "name": "colspan",
+                "valueType": "string",
+                "options": [
+                    {
+                        "name": "1",
+                        "value": "1"
+                    },
+                    {
+                        "name": "2",
+                        "value": "2"
+                    },
+                    {
+                        "name": "3",
+                        "value": "3"
+                    },
+                    {
+                        "name": "4",
+                        "value": "4"
+                    },
+                    {
+                        "name": "5",
+                        "value": "5"
+                    },
+                    {
+                        "name": "6",
+                        "value": "6"
+                    },
+                    {
+                        "name": "7",
+                        "value": "7"
+                    },
+                    {
+                        "name": "8",
+                        "value": "8"
+                    },
+                    {
+                        "name": "9",
+                        "value": "9"
+                    },
+                    {
+                        "name": "10",
+                        "value": "10"
+                    },
+                    {
+                        "name": "11",
+                        "value": "11"
+                    },
+                    {
+                        "name": "12",
+                        "value": "12"
                     }
                 ]
             }
@@ -1368,6 +1760,62 @@
                         "name": "tooltip",
                         "label": "Short description",
                         "valueType": "string"
+                    }
+                ]
+            },
+            {
+                "component": "select",
+                "label": "Col Span",
+                "name": "colspan",
+                "valueType": "string",
+                "options": [
+                    {
+                        "name": "1",
+                        "value": "1"
+                    },
+                    {
+                        "name": "2",
+                        "value": "2"
+                    },
+                    {
+                        "name": "3",
+                        "value": "3"
+                    },
+                    {
+                        "name": "4",
+                        "value": "4"
+                    },
+                    {
+                        "name": "5",
+                        "value": "5"
+                    },
+                    {
+                        "name": "6",
+                        "value": "6"
+                    },
+                    {
+                        "name": "7",
+                        "value": "7"
+                    },
+                    {
+                        "name": "8",
+                        "value": "8"
+                    },
+                    {
+                        "name": "9",
+                        "value": "9"
+                    },
+                    {
+                        "name": "10",
+                        "value": "10"
+                    },
+                    {
+                        "name": "11",
+                        "value": "11"
+                    },
+                    {
+                        "name": "12",
+                        "value": "12"
                     }
                 ]
             }
@@ -1518,6 +1966,62 @@
                         "name": "tooltip",
                         "label": "Short description",
                         "valueType": "string"
+                    }
+                ]
+            },
+            {
+                "component": "select",
+                "label": "Col Span",
+                "name": "colspan",
+                "valueType": "string",
+                "options": [
+                    {
+                        "name": "1",
+                        "value": "1"
+                    },
+                    {
+                        "name": "2",
+                        "value": "2"
+                    },
+                    {
+                        "name": "3",
+                        "value": "3"
+                    },
+                    {
+                        "name": "4",
+                        "value": "4"
+                    },
+                    {
+                        "name": "5",
+                        "value": "5"
+                    },
+                    {
+                        "name": "6",
+                        "value": "6"
+                    },
+                    {
+                        "name": "7",
+                        "value": "7"
+                    },
+                    {
+                        "name": "8",
+                        "value": "8"
+                    },
+                    {
+                        "name": "9",
+                        "value": "9"
+                    },
+                    {
+                        "name": "10",
+                        "value": "10"
+                    },
+                    {
+                        "name": "11",
+                        "value": "11"
+                    },
+                    {
+                        "name": "12",
+                        "value": "12"
                     }
                 ]
             }
@@ -1688,6 +2192,62 @@
                         "description": "Displayed when validation script fails."
                     }
                 ]
+            },
+            {
+                "component": "select",
+                "label": "Col Span",
+                "name": "colspan",
+                "valueType": "string",
+                "options": [
+                    {
+                        "name": "1",
+                        "value": "1"
+                    },
+                    {
+                        "name": "2",
+                        "value": "2"
+                    },
+                    {
+                        "name": "3",
+                        "value": "3"
+                    },
+                    {
+                        "name": "4",
+                        "value": "4"
+                    },
+                    {
+                        "name": "5",
+                        "value": "5"
+                    },
+                    {
+                        "name": "6",
+                        "value": "6"
+                    },
+                    {
+                        "name": "7",
+                        "value": "7"
+                    },
+                    {
+                        "name": "8",
+                        "value": "8"
+                    },
+                    {
+                        "name": "9",
+                        "value": "9"
+                    },
+                    {
+                        "name": "10",
+                        "value": "10"
+                    },
+                    {
+                        "name": "11",
+                        "value": "11"
+                    },
+                    {
+                        "name": "12",
+                        "value": "12"
+                    }
+                ]
             }
         ]
     },
@@ -1837,6 +2397,62 @@
                         "label": "Script validation message",
                         "valueType": "string",
                         "description": "Displayed when validation script fails."
+                    }
+                ]
+            },
+            {
+                "component": "select",
+                "label": "Col Span",
+                "name": "colspan",
+                "valueType": "string",
+                "options": [
+                    {
+                        "name": "1",
+                        "value": "1"
+                    },
+                    {
+                        "name": "2",
+                        "value": "2"
+                    },
+                    {
+                        "name": "3",
+                        "value": "3"
+                    },
+                    {
+                        "name": "4",
+                        "value": "4"
+                    },
+                    {
+                        "name": "5",
+                        "value": "5"
+                    },
+                    {
+                        "name": "6",
+                        "value": "6"
+                    },
+                    {
+                        "name": "7",
+                        "value": "7"
+                    },
+                    {
+                        "name": "8",
+                        "value": "8"
+                    },
+                    {
+                        "name": "9",
+                        "value": "9"
+                    },
+                    {
+                        "name": "10",
+                        "value": "10"
+                    },
+                    {
+                        "name": "11",
+                        "value": "11"
+                    },
+                    {
+                        "name": "12",
+                        "value": "12"
                     }
                 ]
             }
@@ -2007,6 +2623,62 @@
                         "description": "Displayed when validation script fails."
                     }
                 ]
+            },
+            {
+                "component": "select",
+                "label": "Col Span",
+                "name": "colspan",
+                "valueType": "string",
+                "options": [
+                    {
+                        "name": "1",
+                        "value": "1"
+                    },
+                    {
+                        "name": "2",
+                        "value": "2"
+                    },
+                    {
+                        "name": "3",
+                        "value": "3"
+                    },
+                    {
+                        "name": "4",
+                        "value": "4"
+                    },
+                    {
+                        "name": "5",
+                        "value": "5"
+                    },
+                    {
+                        "name": "6",
+                        "value": "6"
+                    },
+                    {
+                        "name": "7",
+                        "value": "7"
+                    },
+                    {
+                        "name": "8",
+                        "value": "8"
+                    },
+                    {
+                        "name": "9",
+                        "value": "9"
+                    },
+                    {
+                        "name": "10",
+                        "value": "10"
+                    },
+                    {
+                        "name": "11",
+                        "value": "11"
+                    },
+                    {
+                        "name": "12",
+                        "value": "12"
+                    }
+                ]
             }
         ]
     },
@@ -2026,6 +2698,62 @@
                 "label": "Show Component",
                 "valueType": "boolean",
                 "value": true
+            },
+            {
+                "component": "select",
+                "label": "Col Span",
+                "name": "colspan",
+                "valueType": "string",
+                "options": [
+                    {
+                        "name": "1",
+                        "value": "1"
+                    },
+                    {
+                        "name": "2",
+                        "value": "2"
+                    },
+                    {
+                        "name": "3",
+                        "value": "3"
+                    },
+                    {
+                        "name": "4",
+                        "value": "4"
+                    },
+                    {
+                        "name": "5",
+                        "value": "5"
+                    },
+                    {
+                        "name": "6",
+                        "value": "6"
+                    },
+                    {
+                        "name": "7",
+                        "value": "7"
+                    },
+                    {
+                        "name": "8",
+                        "value": "8"
+                    },
+                    {
+                        "name": "9",
+                        "value": "9"
+                    },
+                    {
+                        "name": "10",
+                        "value": "10"
+                    },
+                    {
+                        "name": "11",
+                        "value": "11"
+                    },
+                    {
+                        "name": "12",
+                        "value": "12"
+                    }
+                ]
             }
         ]
     },
@@ -2178,6 +2906,62 @@
                         "description": "Displayed when validation script fails."
                     }
                 ]
+            },
+            {
+                "component": "select",
+                "label": "Col Span",
+                "name": "colspan",
+                "valueType": "string",
+                "options": [
+                    {
+                        "name": "1",
+                        "value": "1"
+                    },
+                    {
+                        "name": "2",
+                        "value": "2"
+                    },
+                    {
+                        "name": "3",
+                        "value": "3"
+                    },
+                    {
+                        "name": "4",
+                        "value": "4"
+                    },
+                    {
+                        "name": "5",
+                        "value": "5"
+                    },
+                    {
+                        "name": "6",
+                        "value": "6"
+                    },
+                    {
+                        "name": "7",
+                        "value": "7"
+                    },
+                    {
+                        "name": "8",
+                        "value": "8"
+                    },
+                    {
+                        "name": "9",
+                        "value": "9"
+                    },
+                    {
+                        "name": "10",
+                        "value": "10"
+                    },
+                    {
+                        "name": "11",
+                        "value": "11"
+                    },
+                    {
+                        "name": "12",
+                        "value": "12"
+                    }
+                ]
             }
         ]
     },
@@ -2250,6 +3034,62 @@
                         "valueType": "string"
                     }
                 ]
+            },
+            {
+                "component": "select",
+                "label": "Col Span",
+                "name": "colspan",
+                "valueType": "string",
+                "options": [
+                    {
+                        "name": "1",
+                        "value": "1"
+                    },
+                    {
+                        "name": "2",
+                        "value": "2"
+                    },
+                    {
+                        "name": "3",
+                        "value": "3"
+                    },
+                    {
+                        "name": "4",
+                        "value": "4"
+                    },
+                    {
+                        "name": "5",
+                        "value": "5"
+                    },
+                    {
+                        "name": "6",
+                        "value": "6"
+                    },
+                    {
+                        "name": "7",
+                        "value": "7"
+                    },
+                    {
+                        "name": "8",
+                        "value": "8"
+                    },
+                    {
+                        "name": "9",
+                        "value": "9"
+                    },
+                    {
+                        "name": "10",
+                        "value": "10"
+                    },
+                    {
+                        "name": "11",
+                        "value": "11"
+                    },
+                    {
+                        "name": "12",
+                        "value": "12"
+                    }
+                ]
             }
         ]
     },
@@ -2287,6 +3127,62 @@
                 "name": "unboundFormElement",
                 "label": "Mark as Unbound Form Element",
                 "valueType": "boolean"
+            },
+            {
+                "component": "select",
+                "label": "Col Span",
+                "name": "colspan",
+                "valueType": "string",
+                "options": [
+                    {
+                        "name": "1",
+                        "value": "1"
+                    },
+                    {
+                        "name": "2",
+                        "value": "2"
+                    },
+                    {
+                        "name": "3",
+                        "value": "3"
+                    },
+                    {
+                        "name": "4",
+                        "value": "4"
+                    },
+                    {
+                        "name": "5",
+                        "value": "5"
+                    },
+                    {
+                        "name": "6",
+                        "value": "6"
+                    },
+                    {
+                        "name": "7",
+                        "value": "7"
+                    },
+                    {
+                        "name": "8",
+                        "value": "8"
+                    },
+                    {
+                        "name": "9",
+                        "value": "9"
+                    },
+                    {
+                        "name": "10",
+                        "value": "10"
+                    },
+                    {
+                        "name": "11",
+                        "value": "11"
+                    },
+                    {
+                        "name": "12",
+                        "value": "12"
+                    }
+                ]
             }
         ]
     },
@@ -2324,6 +3220,62 @@
                 "name": "unboundFormElement",
                 "label": "Mark as Unbound Form Element",
                 "valueType": "boolean"
+            },
+            {
+                "component": "select",
+                "label": "Col Span",
+                "name": "colspan",
+                "valueType": "string",
+                "options": [
+                    {
+                        "name": "1",
+                        "value": "1"
+                    },
+                    {
+                        "name": "2",
+                        "value": "2"
+                    },
+                    {
+                        "name": "3",
+                        "value": "3"
+                    },
+                    {
+                        "name": "4",
+                        "value": "4"
+                    },
+                    {
+                        "name": "5",
+                        "value": "5"
+                    },
+                    {
+                        "name": "6",
+                        "value": "6"
+                    },
+                    {
+                        "name": "7",
+                        "value": "7"
+                    },
+                    {
+                        "name": "8",
+                        "value": "8"
+                    },
+                    {
+                        "name": "9",
+                        "value": "9"
+                    },
+                    {
+                        "name": "10",
+                        "value": "10"
+                    },
+                    {
+                        "name": "11",
+                        "value": "11"
+                    },
+                    {
+                        "name": "12",
+                        "value": "12"
+                    }
+                ]
             }
         ]
     },
@@ -2398,6 +3350,62 @@
                         "name": "showLink",
                         "label": "Replace consent text with weblink(s)",
                         "valueType": "boolean"
+                    },
+                    {
+                        "component": "select",
+                        "label": "Col Span",
+                        "name": "colspan",
+                        "valueType": "string",
+                        "options": [
+                            {
+                                "name": "1",
+                                "value": "1"
+                            },
+                            {
+                                "name": "2",
+                                "value": "2"
+                            },
+                            {
+                                "name": "3",
+                                "value": "3"
+                            },
+                            {
+                                "name": "4",
+                                "value": "4"
+                            },
+                            {
+                                "name": "5",
+                                "value": "5"
+                            },
+                            {
+                                "name": "6",
+                                "value": "6"
+                            },
+                            {
+                                "name": "7",
+                                "value": "7"
+                            },
+                            {
+                                "name": "8",
+                                "value": "8"
+                            },
+                            {
+                                "name": "9",
+                                "value": "9"
+                            },
+                            {
+                                "name": "10",
+                                "value": "10"
+                            },
+                            {
+                                "name": "11",
+                                "value": "11"
+                            },
+                            {
+                                "name": "12",
+                                "value": "12"
+                            }
+                        ]
                     }
                 ]
             }
@@ -2459,6 +3467,22 @@
                     },
                     {
                         "component": "select",
+                        "label": "Variant",
+                        "name": "variant",
+                        "valueType": "string",
+                        "options": [
+                            {
+                                "name": "Winning Team",
+                                "value": "winning-team"
+                            },
+                            {
+                                "name": "Favourite Team",
+                                "value": "favourite-team"
+                            }
+                        ]
+                    },
+                    {
+                        "component": "select",
                         "label": "Data type of submitted value",
                         "name": "type",
                         "valueType": "string",
@@ -2474,6 +3498,62 @@
                             {
                                 "name": "Number",
                                 "value": "number"
+                            }
+                        ]
+                    },
+                    {
+                        "component": "select",
+                        "label": "Col Span",
+                        "name": "colspan",
+                        "valueType": "string",
+                        "options": [
+                            {
+                                "name": "1",
+                                "value": "1"
+                            },
+                            {
+                                "name": "2",
+                                "value": "2"
+                            },
+                            {
+                                "name": "3",
+                                "value": "3"
+                            },
+                            {
+                                "name": "4",
+                                "value": "4"
+                            },
+                            {
+                                "name": "5",
+                                "value": "5"
+                            },
+                            {
+                                "name": "6",
+                                "value": "6"
+                            },
+                            {
+                                "name": "7",
+                                "value": "7"
+                            },
+                            {
+                                "name": "8",
+                                "value": "8"
+                            },
+                            {
+                                "name": "9",
+                                "value": "9"
+                            },
+                            {
+                                "name": "10",
+                                "value": "10"
+                            },
+                            {
+                                "name": "11",
+                                "value": "11"
+                            },
+                            {
+                                "name": "12",
+                                "value": "12"
                             }
                         ]
                     },
