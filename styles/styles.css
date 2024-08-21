@@ -123,6 +123,7 @@ main pre {
 /* links */
 a:any-link {
   color: var(--link-color);
+  font-weight: bold;
   text-decoration: none;
 }
 
@@ -207,4 +208,19 @@ main .section {
 main .section.light,
 main .section.highlight {
   background-color: var(--light-color);
+}
+
+main .form form .field-subscription.field-wrapper,
+main .form form .field-giftcard.field-wrapper {
+  display: block;
+}
+
+main .form form .field-subscribeoffer input,
+main .form form .field-winneroffer input {
+  font-size: var(--heading-font-size-m);
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+  color: rgb(0, 142, 151);
+  text-align: center;
 }
