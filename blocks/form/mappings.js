@@ -1,6 +1,6 @@
 import { loadCSS } from '../../scripts/aem.js';
 
-let customComponents = ['hero', 'range'];
+let customComponents = ['hero', 'range', 'toggleable-link', 'tnc'];
 
 export function setCustomComponents(components) {
   customComponents = components;
