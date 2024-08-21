@@ -509,7 +509,7 @@
                 "resourceType": "core/fd/components/form/radiobutton/v1/radiobutton",
                 "template": {
                   "jcr:title": "Image Choice",
-                  "fieldType": "radio-group",
+                  "fieldType": "imagechoice",
                   "fd:viewType": "imagechoice",
                   "enum": ["0", "1"]
                 }

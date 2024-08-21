@@ -47,7 +47,7 @@ class TermsAndConditions {
     }
 }
 export default async function decorate(tncDiv, field, htmlForm) {
-    const tnc = new TermsAndConditions(tncDiv, fieldJson);
+    const tnc = new TermsAndConditions(tncDiv);
     // subscribe(tncDiv, async (fieldDiv, formModel) => {
     //     tnc.setFormModel(formModel);
     // })
