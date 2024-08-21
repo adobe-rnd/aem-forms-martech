@@ -4,9 +4,11 @@ export default async function decorate(fieldDiv, field) {
   fieldDiv.replaceChildren(labelEl);
   const models = field.enum;
   const enumNames = field.enumNames;
+  const variant = field.properties.variant;
 
   const outerdiv = document.createElement('div');
   outerdiv.classList.add('image-choice-container');
+  outerdiv.classList.add(variant);
   fieldDiv.appendChild(outerdiv);
 
   const ul = document.createElement('ul');
@@ -14,7 +16,7 @@ export default async function decorate(fieldDiv, field) {
   outerdiv.appendChild(ul);
   if (enumNames && models) {
     models.forEach((model, index) => {
-      if (index !== 0) {
+      if (variant === 'winning-team' && index !== 0) {
         const outerDiv = document.createElement('div');
         outerDiv.className = 'vs-container';
         const div1 = document.createElement('div');
@@ -37,38 +39,29 @@ export default async function decorate(fieldDiv, field) {
       li.className = 'model-block';
       li.tabIndex = '0';
 
+      // fetch icon with name enumNames[index]
+      const icon = document.createElement('img');
+
+      if (variant === 'winning-team') {
+        icon.src = `https://main--aem-forms-martech--adobe-rnd.hlx.live/icons/${model}.gif`;
+      } else if (variant === 'favourite-team') {
+        icon.src = `https://main--aem-forms-martech--adobe-rnd.hlx.live/icons/${model}.svg`;
+      }
+
+      icon.alt = `Image for car model ${model}`;
+      icon.className = 'team-icon';
+      li.appendChild(icon);
+
       const input = document.createElement('input');
       input.type = 'radio';
-      input.className = 'model-radio';
+      input.classList.add('model-radio');
+      // input.classList.add(variant);
       input.value = model;
       // input.id = getId(field.name);
       input.dataset.fieldType = field.fieldType;
       input.name = field.id;
       input.tabIndex = '-1';
       li.appendChild(input);
-
-      // fetch icon with name enumNames[index]
-      const icon = document.createElement('img');
-
-      /* icon.src = `../../icons/${model}.gif`;
-      if (icon.src === 'null') {
-        icon.src = `../../icons/${model}.svg`;
-      } */
-
-      fetch(`../../icons/${model}.gif`)
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Image not found');
-    }
-    icon.src = `../../icons/${model}.gif`;
-  })
-  .catch(error => {
-    icon.src = `../../icons/${model}.svg`;
-  });
-
-      icon.alt = `Image for car model ${model}`;
-      icon.className = 'team-icon';
-      li.appendChild(icon);
 
       /* const picture = document.createElement('picture');
       const source = document.createElement('source');
@@ -80,11 +73,13 @@ export default async function decorate(fieldDiv, field) {
       picture.appendChild(img);
       li.appendChild(picture); */
 
-      const label = document.createElement('label');
-      label.htmlFor = input.id;
-      label.className = 'model-name';
-      label.textContent = enumNames[index];
-      li.appendChild(label);
+      if (variant === 'winning-team') {
+        const label = document.createElement('label');
+        label.htmlFor = input.id;
+        label.className = 'model-name';
+        label.textContent = enumNames[index];
+        li.appendChild(label);
+      }
 
       ul.appendChild(li);
     });
