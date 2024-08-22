@@ -211,16 +211,24 @@ main .section.highlight {
 }
 
 main .form form .field-subscription.field-wrapper,
-main .form form .field-giftcard.field-wrapper {
+main .form form .field-giftcard.field-wrapper,
+main .form form .field-yourfavteam.field-wrapper,
+main .form form .field-onthego.field-wrapper {
   display: block;
 }
 
 main .form form .field-subscribeoffer input,
-main .form form .field-winneroffer input {
+main .form form .field-winneroffer input,
+main .form form .field-yourfavteam input,
+main .form form .field-onthego input {
   font-size: var(--heading-font-size-m);
   font-weight: bold;
   padding: 0;
   margin: 0;
   color: rgb(0, 142, 151);
+  text-align: center;
+}
+
+.field-streamnfl {
   text-align: center;
 }
