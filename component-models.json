@@ -3598,6 +3598,19 @@
                         "name": "readOnly",
                         "label": "Read-only",
                         "valueType": "boolean"
+                    },
+                    {
+                        "component": "boolean",
+                        "name": "enableProfile",
+                        "label": "Enable Profile",
+                        "valueType": "boolean"
+                    },
+                    {
+                        "component": "text",
+                        "name": "xdmDataRef",
+                        "label": "XDM Bind reference",
+                        "valueType": "string",
+                        "condition": { "==": [{ "var": "enableProfile" }, true] }
                     }
                 ]
             },
