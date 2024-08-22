@@ -58,7 +58,19 @@ function calculateEMI(loanAmount, annualROI, termMonths) {
   return emi.toFixed(2);
 }
 
+/**
+ * Workaround for Invoke Service Issue
+ */
+function applyInvokeServiceWorkaround(global) {
+  if (myForm) {
+    const { myForm } = window;
+    const submitButton = myForm.getElement('button-f6155bcdf9');
+    // eslint-disable-next-line no-underscore-dangle
+    submitButton._jsonModel.events.click[0] = 'request(externalize(\'/content/NFL/index/jcr:content/root/section/form.af.dermis\'),\'POST\',{ "operationName":\'POST NFLPerson\',  "input":toString({xdmEntity: {_formsinternal01: {winningTeam: $form.panelcontainer1724059998351.panelcontainer1724060010408.panelcontainer_8924168121724239056896.winningTeam.$value,favoriteTeam: $form.panelcontainer1724059998351.panelcontainer_1441474551724069378434.teamSelection.favTeam.$value},person: {name: {firstName: firstName.$value,lastName: lastName.$value}},personID: email.$value}}),"functionToExecute":\'invokeFDMOperation\',"apiVersion":\'2\',"formDataModelId":\'/content/dam/formsanddocuments-fdm/aep-connector\',"runValidation":\'false\',"guideNodePath":\'/content/NFL/index/jcr:content/root/section/form/panelcontainer/panelcontainer_957069440/panelcontainer_1445695439/button\'}, {"Content-Type" : \'application/x-www-form-urlencoded\'}, \'custom:wsdlSuccess_1724268855999\',\'custom:wsdlError_1724268855999\')';
+  }
+}
+
 // eslint-disable-next-line import/prefer-default-export
 export {
-  getFullName, days, isReturningVisitor, calculateEMI,
+  getFullName, days, isReturningVisitor, calculateEMI, applyInvokeServiceWorkaround,
 };
