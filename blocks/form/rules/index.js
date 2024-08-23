@@ -38,7 +38,7 @@ function setValue(formModel, fieldId, value) {
     const field = formModel.getElement(fieldId);
     if (field) {
       if (field.fieldType === 'plain-text') {
-        document.getElementById(fieldId).innerHTML = value;
+        document.getElementById(fieldId).innerHTML = `<p><h4>${value}</h4></p>`;
       } else {
         field.value = value;
       }

@@ -218,10 +218,7 @@ main .form form .field-onthego.field-wrapper {
 }
 
 main .form form .field-offermsg,
-main .form form .field-subscribeoffer input,
-main .form form .field-winneroffer input,
-main .form form .field-yourfavteam input,
-main .form form .field-onthego input {
+main .form form .field-favteam input {
   font-size: var(--heading-font-size-m);
   font-weight: bold;
   padding: 0;
@@ -232,4 +229,8 @@ main .form form .field-onthego input {
 
 .field-streamnfl {
   text-align: center;
+}
+
+main .form form .field-offermsg {
+  padding-top: 20px;
 }
