@@ -33,6 +33,20 @@ function disableElement(el, value) {
   el.toggleAttribute('aria-readonly', value === true);
 }
 
+function setValue(formModel, fieldId, value) {
+  if (formModel && value) {
+    const field = formModel.getElement(fieldId);
+    if (field) {
+      if (field.fieldType === 'plain-text') {
+        document.getElementById(fieldId).innerHTML = value;
+      } else {
+        field.value = value;
+      }
+    }
+    formModel.getElement(fieldId).value = value || undefined;
+  }
+}
+
 function applyOffers(properties, offers, formModel) {
   const data = {};
   if (properties?.placementFieldMappings) {
@@ -43,7 +57,7 @@ function applyOffers(properties, offers, formModel) {
       const offer = offers[placementId];
       if (offer) {
         if (formModel) {
-          formModel.getElement(fieldId).value = offer?.content || undefined;
+          setValue(formModel, fieldId, offer?.content);
         } else {
           data[fieldName] = offer?.content || undefined;
         }
@@ -52,7 +66,7 @@ function applyOffers(properties, offers, formModel) {
             const { fieldId: id, fieldName: name } = offerCharacteristicMapping
               .find((x) => x.fieldName === key) || {};
             if (formModel && id) {
-              formModel.getElement(id).value = offer?.characteristics?.[key];
+              setValue(formModel, id, offer?.characteristics?.[key]);
             } else {
               data[name] = offer?.characteristics?.[key];
             }
@@ -140,7 +154,11 @@ async function fieldChanged(payload, form, generateFormRendition, formModel) {
         if (fieldModel && fieldModel?.properties?.enableProfile) {
           refreshAudiencesAndOffers(fieldModel.properties.xdmDataRef, currentValue)
             .then(({ audiences, offers }) => {
-              formModel.getElement(getAudienceAttribute()).value = audiences;
+              const audienceId = getAudienceAttribute();
+              const audienceLinkedField = formModel.getElement(audienceId);
+              if (audienceLinkedField) {
+                audienceLinkedField.value = audiences;
+              }
               applyOffers(formModel.properties, offers, formModel);
             });
         }
