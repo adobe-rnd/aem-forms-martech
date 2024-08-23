@@ -20,10 +20,10 @@ export const DEFAULT_OPTIONS = {
 
 const config = {
   clickCollectionEnabled: false,
-  debugEnabled: false,
+  debugEnabled: true,
   defaultConsent: 'in',
-  datastreamId: '7044a5f4-2a52-4264-9323-3b6511444188',
-  orgId: '908936ED5D35CC220A495CD4@AdobeOrg',
+  datastreamId: '13b53fa1-517d-4360-9aa6-cec732024484',
+  orgId: '5A4521B65E37CAFC0A495FA6@AdobeOrg',
 };
 
 const alloyLoadedPromise = initWebSDK('../../../scripts/alloy.js', config); // load only when personalization is enbaled

@@ -49,15 +49,18 @@ function extractOffersDecisions(response) {
 }
 
 export async function getAudiences(xdm, data) {
+  // eslint-disable-next-line no-underscore-dangle
+  xdm.personalEmail = { address: 'test@test.com' };
   const response = await window.alloy('sendEvent', {
     renderDecisions: false,
     type: 'form.view',
     data,
     xdm,
     decisionScopes: [
-      'eyJ4ZG06YWN0aXZpdHlJZCI6Inhjb3JlOm9mZmVyLWFjdGl2aXR5OjE5MWI5ZDM5OWRiNDUyOTgiLCJ4ZG06cGxhY2VtZW50SWQiOiJ4Y29yZTpvZmZlci1wbGFjZW1lbnQ6MTkxYjk3ZjJmZjMzOTU5NiJ9',
-      'eyJ4ZG06YWN0aXZpdHlJZCI6Inhjb3JlOm9mZmVyLWFjdGl2aXR5OjE5MWI5ZDM5OWRiNDUyOTgiLCJ4ZG06cGxhY2VtZW50SWQiOiJ4Y29yZTpvZmZlci1wbGFjZW1lbnQ6MTkxYjk3ZDMyNzJiNDg2MSJ9',
-      'eyJ4ZG06YWN0aXZpdHlJZCI6Inhjb3JlOm9mZmVyLWFjdGl2aXR5OjE5MjdhNGViZDcwNzZhMzUiLCJ4ZG06cGxhY2VtZW50SWQiOiJ4Y29yZTpvZmZlci1wbGFjZW1lbnQ6MTkyN2EzOGNkNDZiMzhlYSJ9',
+      'eyJ4ZG06YWN0aXZpdHlJZCI6ImRwczpvZmZlci1hY3Rpdml0eToxOTU5NmE4NzliNTM3NjI2IiwieGRtOnBsYWNlbWVudElkIjoiZHBzOm9mZmVyLXBsYWNlbWVudDoxOTU5MzY2YWVlYWM5NzkzIn0=',
+      // 'eyJ4ZG06YWN0aXZpdHlJZCI6Inhjb3JlOm9mZmVyLWFjdGl2aXR5OjE5MWI5ZDM5OWRiNDUyOTgiLCJ4ZG06cGxhY2VtZW50SWQiOiJ4Y29yZTpvZmZlci1wbGFjZW1lbnQ6MTkxYjk3ZjJmZjMzOTU5NiJ9',
+      // 'eyJ4ZG06YWN0aXZpdHlJZCI6Inhjb3JlOm9mZmVyLWFjdGl2aXR5OjE5MWI5ZDM5OWRiNDUyOTgiLCJ4ZG06cGxhY2VtZW50SWQiOiJ4Y29yZTpvZmZlci1wbGFjZW1lbnQ6MTkxYjk3ZDMyNzJiNDg2MSJ9',
+      // 'eyJ4ZG06YWN0aXZpdHlJZCI6Inhjb3JlOm9mZmVyLWFjdGl2aXR5OjE5MjdhNGViZDcwNzZhMzUiLCJ4ZG06cGxhY2VtZW50SWQiOiJ4Y29yZTpvZmZlci1wbGFjZW1lbnQ6MTkyN2EzOGNkNDZiMzhlYSJ9',
     ],
   });
   const segmentIds = extractSegments(response);

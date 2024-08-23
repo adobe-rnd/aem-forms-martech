@@ -217,6 +217,7 @@ main .form form .field-onthego.field-wrapper {
   display: block;
 }
 
+main .form form .field-offermsg,
 main .form form .field-subscribeoffer input,
 main .form form .field-winneroffer input,
 main .form form .field-yourfavteam input,
