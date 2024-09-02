@@ -17,7 +17,9 @@
  * Adobe permits you to use and modify this file solely in accordance with
  * the terms of the Adobe license agreement accompanying it.
  ************************************************************************ */
-import { DEFAULT_OPTIONS, resolveAudiences } from '../martech/index.js';
+import {
+  DEFAULT_OPTIONS, getAudienceAndOffers, getAudienceAttribute, refreshAudiencesAndOffers,
+} from '../martech/index.js';
 import { submitSuccess, submitFailure } from '../submit.js';
 import {
   createHelpText, createLabel, updateOrCreateInvalidMsg, getCheckboxGroupValue,
@@ -29,6 +31,51 @@ import initializeRuleEngineWorker from './worker.js';
 function disableElement(el, value) {
   el.toggleAttribute('disabled', value === true);
   el.toggleAttribute('aria-readonly', value === true);
+}
+
+function setValue(formModel, fieldId, value) {
+  if (formModel && value) {
+    const field = formModel.getElement(fieldId);
+    if (field) {
+      if (field.fieldType === 'plain-text') {
+        document.getElementById(fieldId).innerHTML = value;
+      } else {
+        field.value = value;
+      }
+    }
+    formModel.getElement(fieldId).value = value || undefined;
+  }
+}
+
+function applyOffers(properties, offers, formModel) {
+  const data = {};
+  if (properties?.placementFieldMappings) {
+    const placementFieldMappings = JSON.parse(properties.placementFieldMappings);
+    const offerCharacteristicMapping = JSON.parse(properties.offerCharacteristicMapping || '[]');
+    placementFieldMappings?.forEach((mapping) => {
+      const { placementId, fieldName, fieldId } = mapping;
+      const offer = offers[placementId];
+      if (offer) {
+        if (formModel) {
+          setValue(formModel, fieldId, offer?.content);
+        } else {
+          data[fieldName] = offer?.content || undefined;
+        }
+        if (offer?.characteristics) {
+          Object.keys(offer?.characteristics).forEach((key) => {
+            const { fieldId: id, fieldName: name } = offerCharacteristicMapping
+              .find((x) => x.fieldName === key) || {};
+            if (formModel && id) {
+              setValue(formModel, id, offer?.characteristics?.[key]);
+            } else {
+              data[name] = offer?.characteristics?.[key];
+            }
+          });
+        }
+      }
+    });
+  }
+  return data;
 }
 
 function compare(fieldVal, htmlVal, type) {
@@ -50,15 +97,16 @@ function handleActiveChild(id, form) {
   }
 }
 
-async function fieldChanged(payload, form, generateFormRendition) {
+async function fieldChanged(payload, form, generateFormRendition, formModel) {
   const { changes, field: fieldModel } = payload;
+  const {
+    id, fieldType, readOnly, type, displayValue, displayFormat, displayValueExpression,
+    activeChild,
+  } = fieldModel;
+  const field = form.querySelector(`#${id}`);
+  const fieldWrapper = field.closest('.field-wrapper');
   changes.forEach((change) => {
-    const {
-      id, fieldType, readOnly, type, displayValue, displayFormat, displayValueExpression,
-      activeChild,
-    } = fieldModel;
     const { propertyName, currentValue, prevValue } = change;
-    const field = form.querySelector(`#${id}`);
     if (!field) {
       return;
     }
@@ -102,6 +150,18 @@ async function fieldChanged(payload, form, generateFormRendition) {
         } else if (field.type !== 'file') {
           field.value = currentValue;
         }
+
+        if (fieldModel && fieldModel?.properties?.enableProfile) {
+          refreshAudiencesAndOffers(fieldModel.properties.xdmDataRef, currentValue)
+            .then(({ audiences, offers }) => {
+              const audienceId = getAudienceAttribute();
+              const audienceLinkedField = formModel.getElement(audienceId);
+              if (audienceLinkedField) {
+                audienceLinkedField.value = audiences;
+              }
+              applyOffers(formModel.properties, offers, formModel);
+            });
+        }
         break;
       case 'visible':
         field.closest('.field-wrapper').dataset.visible = currentValue;
@@ -135,7 +195,6 @@ async function fieldChanged(payload, form, generateFormRendition) {
         break;
       case 'label':
         // eslint-disable-next-line no-case-declarations
-        const fieldWrapper = field.closest('.field-wrapper');
         if (fieldWrapper) {
           let labelEl = fieldWrapper.querySelector('.field-label');
           if (labelEl) {
@@ -187,6 +246,9 @@ async function fieldChanged(payload, form, generateFormRendition) {
         break;
     }
   });
+  if (fieldWrapper?.dataset?.subscribe) {
+    fieldWrapper.dataset.fieldModel = JSON.stringify(fieldModel);
+  }
 }
 
 function formChanged(payload, form) {
@@ -202,10 +264,10 @@ function formChanged(payload, form) {
   });
 }
 
-function handleRuleEngineEvent(e, form, generateFormRendition) {
+function handleRuleEngineEvent(e, form, generateFormRendition, formModel) {
   const { type, payload } = e;
   if (type === 'fieldChanged') {
-    fieldChanged(payload, form, generateFormRendition);
+    fieldChanged(payload, form, generateFormRendition, formModel);
   } else if (type === 'change') {
     formChanged(payload, form);
   } else if (type === 'submitSuccess') {
@@ -221,6 +283,7 @@ function applyRuleEngine(htmlForm, form, captcha) {
     const {
       id, value, name, checked,
     } = field;
+    const fieldModel = form.getElement(id);
     if ((field.type === 'checkbox' && field.dataset.fieldType === 'checkbox-group')) {
       const val = getCheckboxGroupValue(name, htmlForm);
       const el = form.getElement(name);
@@ -229,13 +292,13 @@ function applyRuleEngine(htmlForm, form, captcha) {
       const el = form.getElement(name);
       el.value = value;
     } else if (field.type === 'checkbox') {
-      form.getElement(id).value = checked ? value : field.dataset.uncheckedValue;
+      fieldModel.value = checked ? value : field.dataset.uncheckedValue;
     } else if (field.type === 'file') {
-      form.getElement(id).value = Array.from(e?.detail?.files || field.files);
+      fieldModel.value = Array.from(e?.detail?.files || field.files);
     } else if (field.selectedOptions) {
-      form.getElement(id).value = [...field.selectedOptions].map((option) => option.value);
+      fieldModel.value = [...field.selectedOptions].map((option) => option.value);
     } else {
-      form.getElement(id).value = value;
+      fieldModel.value = value;
     }
     // console.log(JSON.stringify(form.exportData(), null, 2));
   });
@@ -269,11 +332,11 @@ export async function loadRuleEngine(formDef, htmlForm, captcha, genFormRenditio
   window.myForm = form;
 
   form.subscribe((e) => {
-    handleRuleEngineEvent(e, htmlForm, genFormRendition);
+    handleRuleEngineEvent(e, htmlForm, genFormRendition, form);
   }, 'fieldChanged');
 
   form.subscribe((e) => {
-    handleRuleEngineEvent(e, htmlForm, genFormRendition);
+    handleRuleEngineEvent(e, htmlForm, genFormRendition, form);
   }, 'change');
 
   form.subscribe((e) => {
@@ -305,13 +368,16 @@ async function fetchData({ id }) {
 }
 
 export async function initAdaptiveForm(formDef, createForm) {
-  const audiences = await resolveAudiences();
-  const data = await fetchData(formDef);
-  data[DEFAULT_OPTIONS.audiencesDataAttribute] = audiences;
+  const segmentsStr = formDef?.properties?.segments;
+  const segments = segmentsStr ? JSON.parse(segmentsStr) : [];
+  const { audiences, offers } = await getAudienceAndOffers(segments);
+  const prefillData = {}; // await fetchData(formDef);
+  const offersData = applyOffers(formDef.properties, offers);
+  offersData[DEFAULT_OPTIONS.audiencesDataAttribute] = audiences;
   await registerCustomFunctions();
   const form = await initializeRuleEngineWorker({
     ...formDef,
-    data,
+    data: { ...prefillData, ...offersData },
   }, createForm);
   return form;
 }

@@ -1,11 +1,11 @@
 :root {
     --background-color-primary: #fff;
-    --label-color: #666;
+    --label-color: #000;
     --border-color: #818a91;
     --form-error-color: #ff5f3f;
-    --button-primary-color: #5F8DDA;
+    --button-primary-color: #035fe6;
     --button-secondary-color: #666;
-    --button-primary-hover-color: #035fe6;
+    --button-primary-hover-color: #5F8DDA;
     --form-font-size-m: 22px;
     --form-font-size-s: 18px;
     --form-font-size-xs: 16px;
@@ -113,13 +113,13 @@ main .form form .field-invalid .field-description {
     font-weight: 700;
 }
 
-main .form input,
+main .form input:not(.model-radio),
 main .form textarea,
 main .form select {
     background-color: var(--form-input-background-color);
     border: var(--form-input-border-size) solid var(--form-input-border-color);
     width: 100%;
-    height: 42px;
+    height: 40px;
     color: var(--form-label-color);
     padding: var(--form-input-padding);
     font-size: var(--form-input-font-size);
@@ -142,7 +142,7 @@ main .form input[type='file'] {
 }
 
 main .form input[type='checkbox'],
-main .form input[type='radio'] {
+main .form input[type='radio']:not(.model-radio) {
     width: 16px;
     height: 16px;
     flex: none;
@@ -437,6 +437,18 @@ main .form form .panel-wrapper{
   gap: var(--form-field-vert-gap) var(--form-field-horz-gap);
 }
 
+main .form form .repeat-wrapper{
+    display: grid;
+    grid-template-columns: repeat(var(--form-columns), minmax(0, 1fr));
+    gap: var(--form-field-vert-gap) var(--form-field-horz-gap);
+}
+
+main .form form .repeat-wrapper{
+    display: grid;
+    grid-template-columns: repeat(var(--form-columns), minmax(0, 1fr));
+    gap: var(--form-field-vert-gap) var(--form-field-horz-gap);
+}
+
 main .form form .wizard.left .panel-wrapper{
   flex: 1;
 }
@@ -548,5 +560,17 @@ main form .wizard > .current-wizard-step.panel-wrapper:last-of-type ~ .wizard-bu
 }
 
 .field-audience {
-    display: block;
+    display: none;
+}
+
+main .form form input:read-only {
+    border: none;
+}
+
+main form .wizard .wizard-button-next, main form .wizard .wizard-button-prev, .wizard-menu-items {
+    display: none;
+}
+
+.plain-text-wrapper {
+    text-align: center;
 }

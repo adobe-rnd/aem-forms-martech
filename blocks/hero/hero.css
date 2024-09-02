@@ -32,3 +32,20 @@ main .hero-container {
   width: 100%;
   height: 100%;
 }
+
+.nfl-hero-section .hero {
+  min-height: 0;
+}
+
+.nfl-hero-section .hero picture {
+  background-color: #004ffe;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nfl-hero-section .hero img {
+  position: relative;
+  width: auto;
+  height: auto;
+}

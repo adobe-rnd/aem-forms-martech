@@ -1,0 +1,14 @@
+{
+  "players": [
+    {"firstName": "Caleb", "lastName": "Williams"},
+    {"firstName": "Olu", "lastName": "Fashanu"},
+    {"firstName": "Brock", "lastName": "Bowers"},
+    {"firstName": "Jer'Zhan", "lastName": "Newton"},
+    {"firstName": "Drake", "lastName": "Maye"},
+    {"firstName": "Jayden", "lastName": "Daniels"},
+    {"firstName": "Joe", "lastName": "Alt"},
+    {"firstName": "Dallas", "lastName": "Turner"},
+    {"firstName": "Marvin", "lastName": "Harrison Jr."},
+    {"firstName": "Malik", "lastName": "Nabers"}
+  ]
+}

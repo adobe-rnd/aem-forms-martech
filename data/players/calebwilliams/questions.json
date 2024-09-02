@@ -1,0 +1,55 @@
+{
+    
+    "questions": [
+        {
+            "question": "WHO SINGS CALEB WILLIAMS’ WARM UP SONG?",
+            "options": [
+                "JOHN LEGEND",
+                "POST MALONE",
+                "RIHANNA",
+                "BRUNO MARS"
+            ],
+            "answer": "JOHN LEGEND"
+        },
+        {
+            "question": "CALEB WILLIAMS TRANSFERED TO USC FROM WHAT SCHOOL?",
+            "options": [
+                "MICHIGAN",
+                "PENN STATE",
+                "OKLAHOMA",
+                "FLORIDA STATE"
+            ],
+            "answer": "OKLAHOMA"
+        },
+        {
+            "question": "WHAT NICKNAME WAS CALEB WILLIAMS GIVEN IN HIGH SCHOOL?",
+            "options": [
+                "THE ENGINE",
+                "BULLDOZER",
+                "LIGHTNING",
+                "SUPERMAN"
+            ],
+            "answer": "SUPERMAN"
+        },
+        {
+            "question": "WHAT NOTABLE ACHIEVEMENT DID CALEB WILLIAMS ACCOMPLISH DURING HIS COLLEGIATE CAREER?",
+            "options": [
+                "MAXWELL AWARD WINNER",
+                "HEISMAN TROPHY WINNER",
+                "DAVEY O'BRIEN AWARD",
+                "NATIONAL CHAMPIONSHIP MVP"
+            ],
+            "answer": "HEISMAN TROPHY WINNER"
+        },
+        {
+            "question": "WHAT BRAND DID CALEB WILLIAMS MAKE A COMMERCIAL APPEARANCE FOR?",
+            "options": [
+                "NIKE",
+                "DR PEPPER",
+                "SUBWAY",
+                "HONDA"
+            ],
+            "answer": "DR PEPPER"
+        }
+    ]
+}

@@ -42,6 +42,7 @@
     "id": "form",
     "components": [
       "checkbox",
+      "checkbox-group",
       "date-input",
       "drop-down",
       "email",
@@ -55,8 +56,13 @@
       "panel",
       "plain-text",
       "radio-group",
+      "telephone-input",
       "text-input",
-      "wizard"
+      "wizard",
+      "hero-input",
+      "range",
+      "tnc",
+      "imagechoice"
     ]
   }
 ]
