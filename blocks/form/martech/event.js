@@ -56,8 +56,6 @@ export async function getAudiences(xdm, data) {
     xdm,
     decisionScopes: [
       'eyJ4ZG06YWN0aXZpdHlJZCI6ImRwczpvZmZlci1hY3Rpdml0eToxOTY3MWVhYzZhNzExNGM1IiwieGRtOnBsYWNlbWVudElkIjoiZHBzOm9mZmVyLXBsYWNlbWVudDoxOTU5MzY2YWVlYWM5NzkzIn0=',
-      'eyJ4ZG06YWN0aXZpdHlJZCI6Inhjb3JlOm9mZmVyLWFjdGl2aXR5OjE5MWI5ZDM5OWRiNDUyOTgiLCJ4ZG06cGxhY2VtZW50SWQiOiJ4Y29yZTpvZmZlci1wbGFjZW1lbnQ6MTkxYjk3ZDMyNzJiNDg2MSJ9',
-      'eyJ4ZG06YWN0aXZpdHlJZCI6Inhjb3JlOm9mZmVyLWFjdGl2aXR5OjE5MjdhNGViZDcwNzZhMzUiLCJ4ZG06cGxhY2VtZW50SWQiOiJ4Y29yZTpvZmZlci1wbGFjZW1lbnQ6MTkyN2EzOGNkNDZiMzhlYSJ9',
     ],
   });
   const segmentIds = extractSegments(response);
