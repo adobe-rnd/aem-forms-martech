@@ -22,8 +22,8 @@ const config = {
   clickCollectionEnabled: false,
   debugEnabled: false,
   defaultConsent: 'in',
-  datastreamId: '7044a5f4-2a52-4264-9323-3b6511444188',
-  orgId: '908936ED5D35CC220A495CD4@AdobeOrg',
+  datastreamId: 'ee3630bf-3ae2-4a23-991f-a2e63e615864',
+  orgId: '5A4521B65E37CAFC0A495FA6@AdobeOrg',
 };
 
 const alloyLoadedPromise = initWebSDK('../../../scripts/alloy.js', config); // load only when personalization is enbaled
