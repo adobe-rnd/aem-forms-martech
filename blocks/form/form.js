@@ -12,7 +12,7 @@ import DocBasedFormToAF from './transform.js';
 import transferRepeatableDOM from './components/repeat/repeat.js';
 import { handleSubmit } from './submit.js';
 import { getSubmitBaseUrl, emailPattern } from './constant.js';
-import { getSegments } from './martech/event.js';
+import { getAudiences } from './martech/event.js';
 
 export const DELAY_MS = 0;
 let captchaField;
@@ -268,7 +268,7 @@ const handleFocusOut = (input) => {
 const handleProfileFieldChange = async (event, field) => {
   var element = event.target;
   var audience = document.querySelector("[name='__audience__']");
-  const audiences = await getSegments(getXDMObject(field, element.value), {});
+  const audiences = await getAudiences(getXDMObject(field, element.value), {});
   audience.value = audiences;
   const changeEvent = new CustomEvent('change', {});
   audience.dispatchEvent(changeEvent);
